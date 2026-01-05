@@ -158,7 +158,7 @@ NEXT_PUBLIC_API_URL
 ## 🧑‍💻 Developer
 
 **Md Shakerullah Sourov**
-Frontend-focused Full Stack Developer
+Full Stack Developer
 
 - GitHub: [https://github.com/mdshakerullahS](https://github.com/mdshakerullahS)
 - LinkedIn: [https://linkedin.com/in/mdshakerullah](https://linkedin.com/in/mdshakerullah)
