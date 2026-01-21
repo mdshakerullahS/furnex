@@ -23,10 +23,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { usePathname, useRouter } from "next/navigation";
 
 const Page = () => {
   const { categories, getCategories } = useCategory();
   const [products, setProducts] = useState([]);
+
+  const pathname = usePathname();
+  const router = useRouter();
 
   const { selectedCategory, setSelectedCategory } = useCategory();
   const [sortBy, setSortBy] = useState("default");
@@ -44,17 +48,19 @@ const Page = () => {
 
   const getProducts = async () => {
     try {
-      const query = new URLSearchParams({
-        category: selectedCategory || "",
-        minPrice: minPrice || "0",
-        maxPrice: maxPrice || "99999",
-        sortBy,
-        currentPage,
-        limit,
-      }).toString();
+      const query = new URLSearchParams();
+
+      if (selectedCategory) query.set("category", selectedCategory);
+      if (minPrice) query.set("minPrice", minPrice);
+      if (maxPrice) query.set("maxPrice", maxPrice);
+      if (sortBy) query.set("sortBy", sortBy);
+      if (currentPage) query.set("currentPage", currentPage);
+      if (limit) query.set("limit", limit);
+
+      router.push(`${pathname}?${query.toString()}`);
 
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/products?${query}`
+        `${process.env.NEXT_PUBLIC_API_URL}/products?${query.toString()}`,
       );
       const data = await res.json();
 
@@ -167,7 +173,7 @@ const Page = () => {
                       {page}
                     </PaginationLink>
                   </PaginationItem>
-                )
+                ),
               )}
 
               {totalPages > 5 && <PaginationEllipsis />}
