@@ -70,7 +70,10 @@ export const getProducts = async (req, res, next) => {
     } = req.query;
 
     const filter = {};
-    if (category) filter.categoryID = category;
+    if (category) {
+      const matchedCategory = await Category.findOne({ name: category });
+      filter.categoryID = matchedCategory._id;
+    }
     if (minPrice || maxPrice) {
       filter.price = {};
       if (minPrice) filter.price.$gte = Number(minPrice);
@@ -102,7 +105,7 @@ export const getProducts = async (req, res, next) => {
 export const getSingleProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id).select(
-      "-cloudinaryIDs"
+      "-cloudinaryIDs",
     );
 
     if (!product) {
