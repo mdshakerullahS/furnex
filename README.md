@@ -175,13 +175,6 @@ Full Stack Developer
 ## 📄 License
 
 This project is licensed under the **MIT License**.
-
-You are free to:
-
-- Use the code for personal or commercial projects
-- Modify and distribute the code
-- Use it as a learning or portfolio reference
-
 See the `LICENSE` file for full details.
 
 ---
