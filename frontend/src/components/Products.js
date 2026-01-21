@@ -20,7 +20,7 @@ const Products = ({ products }) => {
     );
 
   return (
-    <div className="w-full grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(220px,240px))] px-0.5 py-0.5 md:px-0 md:py-0">
+    <div className="w-full grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(220px,240px))] justify-center px-0.5 py-0.5 md:px-0 md:py-0">
       {Array.isArray(products) &&
         products.map((product) => {
           const outOfStock = product.stock === 0;
