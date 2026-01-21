@@ -48,7 +48,7 @@ const Filter = ({
           {categories &&
             categories.map((category) => (
               <div key={category._id} className="flex items-center space-x-2">
-                <RadioGroupItem value={category._id} id={category._id} />
+                <RadioGroupItem value={category.name} id={category._id} />
                 <Label htmlFor={category._id} className="cursor-pointer">
                   {category.name}
                 </Label>
