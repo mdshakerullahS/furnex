@@ -160,8 +160,8 @@ NEXT_PUBLIC_API_URL
 **Md Shakerullah Sourov**
 Full Stack Developer
 
-- GitHub: [https://github.com/mdshakerullahS](https://github.com/mdshakerullahS)
 - LinkedIn: [https://linkedin.com/in/mdshakerullah](https://linkedin.com/in/mdshakerullah)
+- Email: [sourovmdshakerullah@gmail.com](mailto:sourovmdshakerullah@gmail.com)
 
 ---
 
