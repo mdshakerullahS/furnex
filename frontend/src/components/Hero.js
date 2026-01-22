@@ -61,13 +61,12 @@ const Hero = () => {
                   className="h-[400px] rounded-2xl object-cover"
                 />
 
-                <div className="bg-foreground/60 flex flex-col gap-4 items-center justify-center rounded-2xl absolute inset-0">
+                <div className="bg-foreground/60 flex flex-col items-center justify-center rounded-2xl absolute inset-0">
                   <h1 className="text-3xl md:text-6xl lg:text-8xl font-bold text-center text-primary drop-shadow-primary drop-shadow-xs">
                     Crafted Comfort for Modern Living
                   </h1>
-                  <p className="text-background text-sm md:text-xl text-center max-w-80 md:max-w-xl lg:max-w-4xl leading-tight md:leading-relaxed drop-shadow-background drop-shadow-xs">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                    elit tellus, luctus nec ullamcorper mattis.
+                  <p className="text-background text-sm md:text-xl lg:text-2xl text-center p-6 leading-tight md:leading-relaxed drop-shadow-background drop-shadow-xs">
+                    Thoughtfully designed furniture for modern living.
                   </p>
                   <Button
                     size={width <= 480 ? "sm" : "lg"}
