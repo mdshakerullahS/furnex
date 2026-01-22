@@ -6,6 +6,7 @@ import { Suspense, useEffect } from "react";
 import { AspectRatio } from "./ui/aspect-ratio";
 import { Card } from "./ui/card";
 import { useRouter } from "next/navigation";
+import useProducts from "@/stores/productStore";
 
 const Categories = () => {
   const { categories, getCategories } = useCategory();
@@ -28,7 +29,7 @@ const Categories = () => {
 };
 
 const CategoryCard = ({ categories }) => {
-  const { setSelectedCategory } = useCategory();
+  const { setSelectedCategory } = useProducts();
   const router = useRouter();
 
   const handleClick = (category) => {
@@ -42,7 +43,7 @@ const CategoryCard = ({ categories }) => {
         categories.map((category) => (
           <div
             key={category._id}
-            onClick={() => handleClick(category._id)}
+            onClick={() => handleClick(category.name)}
             className="cursor-pointer"
           >
             <Card className="w-25 p-0 overflow-hidden">
