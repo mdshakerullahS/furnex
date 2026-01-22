@@ -23,57 +23,57 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import useProducts from "@/stores/productStore";
 import { usePathname, useRouter } from "next/navigation";
 
 const Page = () => {
-  const { categories, getCategories } = useCategory();
-  const [products, setProducts] = useState([]);
-
-  const pathname = usePathname();
   const router = useRouter();
+  const pathname = usePathname();
 
-  const { selectedCategory, setSelectedCategory } = useCategory();
-  const [sortBy, setSortBy] = useState("default");
-  const [limit, setLimit] = useState(12);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(99999);
-  const [totalProducts, setTotalProducts] = useState(0);
+  const { categories, getCategories } = useCategory();
+  const {
+    products,
+    getProducts,
+    totalProducts,
+    selectedCategory,
+    setSelectedCategory,
+    search,
+    sortBy,
+    setSortBy,
+    limit,
+    setLimit,
+    currentPage,
+    setCurrentPage,
+    minPrice,
+    setMinPrice,
+    maxPrice,
+    setMaxPrice,
+  } = useProducts();
 
   const [showFilter, setShowFilter] = useState(false);
+
+  const fetchAndSyncURL = async () => {
+    const queryString = await getProducts();
+    if (queryString) {
+      router.push(`${pathname}?${queryString}`);
+    }
+  };
 
   useEffect(() => {
     getCategories();
   }, []);
 
-  const getProducts = async () => {
-    try {
-      const query = new URLSearchParams();
-
-      if (selectedCategory) query.set("category", selectedCategory);
-      if (minPrice) query.set("minPrice", minPrice);
-      if (maxPrice) query.set("maxPrice", maxPrice);
-      if (sortBy) query.set("sortBy", sortBy);
-      if (currentPage) query.set("currentPage", currentPage);
-      if (limit) query.set("limit", limit);
-
-      router.push(`${pathname}?${query.toString()}`);
-
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/products?${query.toString()}`,
-      );
-      const data = await res.json();
-
-      setProducts(data.products || []);
-      setTotalProducts(data.totalProducts || 0);
-    } catch (err) {
-      console.error("Failed to fetch products:", err);
-    }
-  };
-
   useEffect(() => {
-    getProducts();
-  }, [selectedCategory, minPrice, maxPrice, sortBy, currentPage, limit]);
+    fetchAndSyncURL();
+  }, [
+    search,
+    selectedCategory,
+    minPrice,
+    maxPrice,
+    sortBy,
+    currentPage,
+    limit,
+  ]);
 
   const totalPages = totalProducts > 0 ? Math.ceil(totalProducts / limit) : 1;
 
