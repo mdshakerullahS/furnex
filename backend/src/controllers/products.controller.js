@@ -61,6 +61,7 @@ export const addProduct = async (req, res, next) => {
 export const getProducts = async (req, res, next) => {
   try {
     const {
+      search,
       category,
       minPrice,
       maxPrice,
@@ -70,6 +71,9 @@ export const getProducts = async (req, res, next) => {
     } = req.query;
 
     const filter = {};
+    if (search) {
+      filter.title = { $regex: search, $options: "i" };
+    }
     if (category) {
       const matchedCategory = await Category.findOne({ name: category });
       filter.categoryID = matchedCategory._id;
