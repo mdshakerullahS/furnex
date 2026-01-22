@@ -47,7 +47,7 @@ const Header = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="w-1/2 hidden lg:block"
         >
-          <InputGroup className="rounded-xl">
+          <InputGroup className="rounded-xl overflow-hidden">
             <InputGroupInput
               placeholder="Search Products . . ."
               {...register("search")}
