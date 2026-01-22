@@ -3,6 +3,7 @@ import Categories from "@/components/Categories";
 import Hero from "@/components/Hero";
 import ProductsSection from "@/components/ProductsSection";
 import TrustStrip from "@/components/TrustStrip";
+import Testimonials from "@/components/Testimonials";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Categories />
       <ProductsSection />
       <Features />
+      <Testimonials />
     </main>
   );
 }
