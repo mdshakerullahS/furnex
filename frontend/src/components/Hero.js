@@ -12,6 +12,8 @@ import {
   CarouselPrevious,
 } from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 const images = new Array(3).fill(0);
 
@@ -33,15 +35,16 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="px-2 md:px-4 lg:px-8">
+    <section className="px-2 md:px-4 lg:px-8 mt-4">
       <div className="py-2 md:hidden">
         <SearchForm />
       </div>
-      <AspectRatio ratio={width <= 960 ? 2 : 2.2}>
+
+      <AspectRatio ratio={width <= 480 ? 1.4 : width <= 960 ? 2 : 2.2}>
         <Carousel
           plugins={[
             Autoplay({
-              delay: 2000,
+              delay: 6000,
             }),
           ]}
           className="h-full"
@@ -57,6 +60,22 @@ const Hero = () => {
                   priority
                   className="h-[400px] rounded-2xl object-cover"
                 />
+
+                <div className="bg-foreground/60 flex flex-col gap-4 items-center justify-center rounded-2xl absolute inset-0">
+                  <h1 className="text-3xl md:text-6xl lg:text-8xl font-bold text-center text-primary drop-shadow-primary drop-shadow-xs">
+                    Crafted Comfort for Modern Living
+                  </h1>
+                  <p className="text-background text-sm md:text-xl text-center max-w-80 md:max-w-xl lg:max-w-4xl leading-tight md:leading-relaxed drop-shadow-background drop-shadow-xs">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
+                    elit tellus, luctus nec ullamcorper mattis.
+                  </p>
+                  <Button
+                    size={width <= 480 ? "sm" : "lg"}
+                    className="mt-4 md:mt-8 cursor-pointer"
+                  >
+                    <Link href="/shop">Explore Collection</Link>
+                  </Button>
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>
