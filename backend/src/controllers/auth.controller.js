@@ -46,7 +46,7 @@ export const register = async (req, res, next) => {
       process.env.JWT_SECRET,
       {
         expiresIn: "7d",
-      }
+      },
     );
     res.cookie("token", token, {
       httpOnly: true,
@@ -72,7 +72,7 @@ export const register = async (req, res, next) => {
           for (const guestItem of guestCart.items) {
             const existingItem = userCart.items.find(
               (item) =>
-                item.productID.toString() === guestItem.productID.toString()
+                item.productID.toString() === guestItem.productID.toString(),
             );
 
             if (existingItem) {
@@ -137,7 +137,7 @@ export const login = async (req, res, next) => {
       process.env.JWT_SECRET,
       {
         expiresIn: "7d",
-      }
+      },
     );
     res.cookie("token", token, {
       httpOnly: true,
@@ -163,7 +163,7 @@ export const login = async (req, res, next) => {
           for (const guestItem of guestCart.items) {
             const existingItem = userCart.items.find(
               (item) =>
-                item.productID.toString() === guestItem.productID.toString()
+                item.productID.toString() === guestItem.productID.toString(),
             );
 
             if (existingItem) {
@@ -199,9 +199,9 @@ export const loggedInUser = async (req, res, next) => {
   try {
     const userID = req.user?._id;
 
-    const user = await User.findOne({ _id: userID }).select("-password");
+    if (!userID) return res.status(401).json({ message: "Please login" });
 
-    if (!user) return;
+    const user = await User.findOne({ _id: userID }).select("-password");
 
     return res.status(200).json({ user });
   } catch (error) {
