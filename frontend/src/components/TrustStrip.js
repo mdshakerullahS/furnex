@@ -25,7 +25,7 @@ const strips = [
 
 const TrustStript = () => {
   return (
-    <section className="bg-accent/30 py-12 px-8 my-12">
+    <section className="bg-accent/30 py-12 px-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {strips.map((strip) => (
           <div key={strip.label} className="flex items-center gap-4">

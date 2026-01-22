@@ -3,7 +3,7 @@ import { Quote, Star } from "lucide-react";
 
 const Testimonials = () => {
   return (
-    <section className="bg-accent/30 py-12 px-8 my-12 space-y-8">
+    <section className="bg-accent/30 py-12 px-8 mt-12 space-y-8">
       <h2 className="text-2xl text-center text-accent-foreground font-bold">
         What Our Customers Say
       </h2>

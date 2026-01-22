@@ -9,11 +9,11 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <TrustStrip />
       <Categories />
       <ProductsSection />
       <Features />
       <Testimonials />
+      <TrustStrip />
     </main>
   );
 }
