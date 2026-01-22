@@ -1,33 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "../../public/Logo.png";
 
 import { Button } from "./ui/button";
-import { Menu, SearchIcon, ShoppingCart } from "lucide-react";
+import { Menu, ShoppingCart } from "lucide-react";
 import Navigation from "./Navigation";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
-import { useForm } from "react-hook-form";
-import useProducts from "@/stores/productStore";
+
+import SearchForm from "./SearchForm";
 
 const Header = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
-  const { setSearch } = useProducts();
-
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const { handleSubmit, register } = useForm();
-
-  const onSubmit = (data) => {
-    setSearch(data.search);
-
-    if (pathname !== "/shop") router.push("/shop");
-  };
   return (
     <header className="bg-background/20 backdrop-blur-xl fixed top-0 inset-x-0 z-10">
       <div className="flex items-center justify-between px-2 md:px-4 lg:px-8 py-3">
@@ -43,20 +29,9 @@ const Header = () => {
           <h1 className="text-xl font-bold">Furniro</h1>
         </Link>
 
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-1/2 hidden lg:block"
-        >
-          <InputGroup className="rounded-xl overflow-hidden">
-            <InputGroupInput
-              placeholder="Search Products . . ."
-              {...register("search")}
-            />
-            <InputGroupAddon>
-              <SearchIcon />
-            </InputGroupAddon>
-          </InputGroup>
-        </form>
+        <div className="hidden md:block">
+          <SearchForm />
+        </div>
 
         <div className="flex items-center">
           <Button

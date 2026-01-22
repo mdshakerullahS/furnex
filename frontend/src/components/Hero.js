@@ -7,8 +7,7 @@ import heroImage3 from "../../public/Hero_Image_3.jpg";
 import Image from "next/image";
 import { AspectRatio } from "./ui/aspect-ratio";
 import { useEffect, useState } from "react";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
-import { SearchIcon } from "lucide-react";
+import SearchForm from "./SearchForm";
 
 const Hero = () => {
   const [width, setWidth] = useState(0);
@@ -29,13 +28,8 @@ const Hero = () => {
 
   return (
     <section className="px-2 md:px-4 lg:px-8">
-      <div className="py-2 lg:hidden">
-        <InputGroup className="rounded-xl">
-          <InputGroupInput placeholder="Search Products . . ." />
-          <InputGroupAddon>
-            <SearchIcon />
-          </InputGroupAddon>
-        </InputGroup>
+      <div className="py-2 md:hidden">
+        <SearchForm />
       </div>
       <div className="flex flex-col lg:flex-row gap-2 md:gap-4 lg:gap-6">
         <AspectRatio ratio={width <= 960 ? 2 : 2.85}>
