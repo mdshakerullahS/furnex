@@ -1,5 +1,6 @@
 import Product from "../models/product.model.js";
 import Category from "../models/category.model.js";
+import Order from "../models/order.model.js";
 
 export const addProduct = async (req, res, next) => {
   try {
@@ -101,6 +102,37 @@ export const getProducts = async (req, res, next) => {
     ]);
 
     res.json({ products, totalProducts });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getBestSellers = async (_, res, next) => {
+  try {
+    const bestSellers =
+      (await Order.aggregate([
+        { $match: { status: "Completed" } },
+        { $unwind: "$items" },
+        {
+          $group: {
+            _id: "$items.productID",
+            totalSold: { $sum: "$items.quantity" },
+          },
+        },
+        { $sort: { totalSold: -1 } },
+        { $limit: 10 },
+        {
+          $lookup: {
+            from: "products",
+            localField: "_id",
+            foreignField: "_id",
+            as: "product",
+          },
+        },
+        { $unwind: "$product" },
+      ])) || [];
+
+    return res.status(200).json({ bestSellers });
   } catch (err) {
     next(err);
   }
