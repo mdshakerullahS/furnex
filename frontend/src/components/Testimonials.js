@@ -1,5 +1,49 @@
+"use client";
+
 import { Quote, Star } from "lucide-react";
-// import Image from "next/image";
+import Image from "next/image";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+
+const testimonials = [
+  {
+    name: "Sarah Jenkins",
+    role: "Interior Designer",
+    image: "https://i.pravatar.cc/150?u=1",
+    review:
+      "The quality of the dining table we purchased is exceptional. It has become the centerpiece of our home. Truly master craftsmanship.",
+    rating: 5,
+  },
+  {
+    name: "Michael Chen",
+    role: "Home Owner",
+    image: "https://i.pravatar.cc/150?u=2",
+    review:
+      "Fast delivery and the assembly team was so professional. The sofa is incredibly comfortable and looks better than in the photos!",
+    rating: 5,
+  },
+  {
+    name: "Emma Wilson",
+    role: "Sustainable Advocate",
+    image: "https://i.pravatar.cc/150?u=3",
+    review:
+      "I love the sustainable approach. Knowing my bed frame was ethically sourced makes me sleep even better. Highly recommended!",
+    rating: 5,
+  },
+];
 
 const Testimonials = () => {
   return (
@@ -8,95 +52,44 @@ const Testimonials = () => {
         What Our Customers Say
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-50 relative">
-          <div className="absolute -top-4 left-10 w-8 h-8 bg-[#B88E2F] rounded-full flex items-center justify-center">
-            <Quote className="text-white w-4 h-4" />
-          </div>
-          <div className="flex gap-1 text-[#FFC107] mb-6">
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-          </div>
-          <p className="text-[#616161] leading-relaxed mb-8 italic">
-            "The quality of the dining table we purchased is exceptional. It has
-            become the centerpiece of our home. Truly master craftsmanship."
-          </p>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
-              {/* <Image
-                  src="https://i.pravatar.cc/150?u=1"
-                  alt="User"
-                  className="w-full h-full object-cover"
-                /> */}
-            </div>
-            <div>
-              <h4 className="font-bold text-[#3A3A3A]">Sarah Jenkins</h4>
-              <p className="text-xs text-gray-400">Interior Designer</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-50 relative">
-          <div className="absolute -top-4 left-10 w-8 h-8 bg-[#B88E2F] rounded-full flex items-center justify-center">
-            <Quote className="text-white w-4 h-4" />
-          </div>
-          <div className="flex gap-1 text-[#FFC107] mb-6">
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-          </div>
-          <p className="text-[#616161] leading-relaxed mb-8 italic">
-            "Fast delivery and the assembly team was so professional. The sofa
-            is incredibly comfortable and looks better than in the photos!"
-          </p>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
-              {/* <Image
-                  src="https://i.pravatar.cc/150?u=2"
-                  alt="User"
-                  className="w-full h-full object-cover"
-                /> */}
-            </div>
-            <div>
-              <h4 className="font-bold text-[#3A3A3A]">Michael Chen</h4>
-              <p className="text-xs text-gray-400">Home Owner</p>
-            </div>
-          </div>
-        </div>
-        <div className="bg-white p-10 rounded-2xl shadow-sm border border-gray-50 relative">
-          <div className="absolute -top-4 left-10 w-8 h-8 bg-[#B88E2F] rounded-full flex items-center justify-center">
-            <Quote className="text-white w-4 h-4" />
-          </div>
-          <div className="flex gap-1 text-[#FFC107] mb-6">
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-current" />
-            <Star className="w-4 h-4 fill-currentCover" />
-          </div>
-          <p className="text-[#616161] leading-relaxed mb-8 italic">
-            "I love the sustainable approach. Knowing my bed frame was ethically
-            sourced makes me sleep even better. Highly recommended!"
-          </p>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-gray-200 overflow-hidden">
-              {/* <Image
-                  src="https://i.pravatar.cc/150?u=3"
-                  alt="User"
-                  className="w-full h-full object-cover"
-                /> */}
-            </div>
-            <div>
-              <h4 className="font-bold text-[#3A3A3A]">Emma Wilson</h4>
-              <p className="text-xs text-gray-400">Sustainable Advocate</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Carousel plugins={[Autoplay({ delay: 2000 })]}>
+        <CarouselContent className="gap-2">
+          {testimonials.concat(testimonials).map((t, i) => (
+            <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3">
+              <Card>
+                <div className="flex gap-1 text-orange-300 ml-18 pt-4">
+                  {new Array(t.rating).fill().map((_, i) => (
+                    <Star key={i} className="w-6 h-6 fill-current" />
+                  ))}
+                </div>
+                <CardContent className="italic relative">
+                  <p>"{t.review}"</p>
+                  <div className="absolute -top-16 left-4 w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                    <Quote className="text-background w-6 h-6" />
+                  </div>
+                </CardContent>
+                <CardHeader className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <Image
+                      src={t.image}
+                      width={48}
+                      height={48}
+                      alt="User"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <CardTitle>{t.name}</CardTitle>
+                    <CardDescription>{t.role}</CardDescription>
+                  </div>
+                </CardHeader>
+              </Card>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+        <CarouselPrevious className="-left-6" />
+        <CarouselNext className="-right-6" />
+      </Carousel>
     </section>
   );
 };
