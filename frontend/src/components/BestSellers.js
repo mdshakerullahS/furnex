@@ -39,7 +39,7 @@ const BestSellers = () => {
                 key={product._id}
                 className="p-2 m-1.5 md:m-2.5 group transition-all hover:shadow-lg"
               >
-                <CardHeader className="p-0">
+                <CardHeader className="p-0 h-full">
                   <Link href={`/shop/products/${product.product._id}`}>
                     <AspectRatio
                       ratio={1.5}
