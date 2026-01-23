@@ -35,7 +35,7 @@ export default function Page() {
   const total = Array.isArray(cart.items)
     ? cart.items.reduce(
         (sum, item) => sum + item.productID.price * item.quantity,
-        0
+        0,
       )
     : 0;
 
@@ -46,7 +46,7 @@ export default function Page() {
         {
           method: "POST",
           credentials: "include",
-        }
+        },
       );
 
       const data = await res.json();
@@ -65,7 +65,7 @@ export default function Page() {
 
   const onSubmit = async (data) => {
     try {
-      if (user?.isVerified) {
+      if (!user?.isVerified) {
         requestOTP();
         return;
       }
