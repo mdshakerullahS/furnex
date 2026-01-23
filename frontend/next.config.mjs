@@ -5,10 +5,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "res.cloudinary.com", // Specify the exact hostname
-        pathname: "/dxv01t8ic/**", // Optional: Restrict to specific paths
+        hostname: "res.cloudinary.com",
+        pathname: "/dxv01t8ic/**",
       },
-      // Add more patterns as needed
+      {
+        protocol: "https",
+        hostname: "i.pravatar.cc",
+        pathname: "/150/**",
+      },
     ],
   },
 };
