@@ -38,13 +38,13 @@ const CategoryCard = ({ categories }) => {
   };
 
   return (
-    <div className="flex gap-2 md:gap-4 py-4 overflow-x-auto">
+    <div className="grid grid-cols-3 md:grid-cols-[repeat(auto-fit,minmax(126px,132px))] justify-center gap-2 md:gap-4 py-4 overflow-x-auto">
       {categories &&
         categories.map((category) => (
           <div
             key={category._id}
             onClick={() => handleClick(category.name)}
-            className="cursor-pointer"
+            className="flex flex-col items-center cursor-pointer"
           >
             <Card className="w-25 p-0 overflow-hidden">
               <AspectRatio ratio={1}>
