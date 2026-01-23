@@ -111,7 +111,6 @@ export const getBestSellers = async (_, res, next) => {
   try {
     const bestSellers =
       (await Order.aggregate([
-        { $match: { status: "Completed" } },
         { $unwind: "$items" },
         {
           $group: {
