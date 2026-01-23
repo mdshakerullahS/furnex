@@ -25,7 +25,9 @@ const BestSellers = () => {
 
   return (
     <section className="my-12 px-2 md:px-4 lg:px-8 space-y-8">
-      <h2 className="text-2xl text-center font-bold">Best Sellers</h2>
+      <h2 className="text-2xl text-center text-accent-foreground font-bold">
+        Best Sellers
+      </h2>
 
       <div className="w-full grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(220px,240px))] justify-center px-0.5 py-0.5 md:px-0 md:py-0">
         {Array.isArray(bestSellers) &&

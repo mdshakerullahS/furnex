@@ -19,7 +19,9 @@ const Categories = () => {
 
   return (
     <section className="my-12 px-2 md:px-4 lg:px-8 space-y-8">
-      <h2 className="text-2xl text-center font-bold">Featured Categories</h2>
+      <h2 className="text-2xl text-center text-accent-foreground font-bold">
+        Featured Categories
+      </h2>
 
       <Suspense fallback={<div>Loading...</div>}>
         <CategoryCard categories={categories} />
