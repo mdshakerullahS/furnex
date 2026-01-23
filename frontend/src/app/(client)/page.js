@@ -1,7 +1,7 @@
 import Features from "@/components/Features";
 import Categories from "@/components/Categories";
 import Hero from "@/components/Hero";
-import ProductsSection from "@/components/ProductsSection";
+import BestSellers from "@/components/BestSellers";
 import TrustStrip from "@/components/TrustStrip";
 import Testimonials from "@/components/Testimonials";
 
@@ -10,7 +10,7 @@ export default function Home() {
     <main>
       <Hero />
       <Categories />
-      <ProductsSection />
+      <BestSellers />
       <Features />
       <Testimonials />
       <TrustStrip />

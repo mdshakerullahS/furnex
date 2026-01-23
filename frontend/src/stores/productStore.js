@@ -10,6 +10,7 @@ const useProducts = create((set, get) => ({
   maxPrice: 999999,
   products: [],
   totalProducts: null,
+  bestSellers: [],
 
   setSearch: (search) => {
     set({ search });
@@ -62,6 +63,18 @@ const useProducts = create((set, get) => ({
       set({ products: data.products, totalProducts: data.totalProducts });
 
       return query.toString();
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+  getBestSellers: async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/products/best-sellers`,
+      );
+      const data = await res.json();
+
+      set({ bestSellers: data.bestSellers });
     } catch (error) {
       console.log(error.message);
     }
