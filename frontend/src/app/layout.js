@@ -26,29 +26,29 @@ export const metadata = {
     },
   },
 
-  // openGraph: {
-  //   type: "website",
-  //   url: BASE_URL,
-  //   title: TITLE,
-  //   description: DESCRIPTION,
-  //   siteName: TITLE,
-  //   images: [
-  //     {
-  //       url: "/og-image.png",
-  //       width: 1200,
-  //       height: 630,
-  //       alt: TITLE,
-  //     },
-  //   ],
-  // },
+  openGraph: {
+    type: "website",
+    url: BASE_URL,
+    title: TITLE,
+    description: DESCRIPTION,
+    siteName: TITLE,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: TITLE,
+      },
+    ],
+  },
 
-  // twitter: {
-  //   card: "summary_large_image",
-  //   creator: "@mdshakerullahS",
-  //   images: ["/og-image.png"],
-  //   description: DESCRIPTION,
-  //   title: TITLE,
-  // },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@mdshakerullahS",
+    images: ["/og-image.png"],
+    description: DESCRIPTION,
+    title: TITLE,
+  },
 
   icons: {
     icon: "/favicon.ico",
