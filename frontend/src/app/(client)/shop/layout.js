@@ -9,13 +9,19 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import useProducts from "@/stores/productStore";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function ShopLayout({ children }) {
   const pathname = usePathname();
+  const router = useRouter();
 
-  const { singleProduct } = useProducts();
+  const { singleProduct, selectedCategory, setSelectedCategory } =
+    useProducts();
 
+  const handleClick = (category) => {
+    setSelectedCategory(category);
+    router.push("/shop");
+  };
   return (
     <div>
       <Breadcrumb>
@@ -27,13 +33,31 @@ export default function ShopLayout({ children }) {
           <BreadcrumbItem>
             <BreadcrumbLink href="/shop">Products</BreadcrumbLink>
           </BreadcrumbItem>
-          {pathname.includes("/shop/products/") && (
+
+          {pathname.includes("/shop/products/") ? (
             <>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage
+                  onClick={() => handleClick(singleProduct?.categoryID.name)}
+                >
+                  {singleProduct?.categoryID.name}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbPage>{singleProduct?.title}</BreadcrumbPage>
               </BreadcrumbItem>
             </>
+          ) : (
+            selectedCategory && (
+              <>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>{selectedCategory}</BreadcrumbPage>
+                </BreadcrumbItem>
+              </>
+            )
           )}
         </BreadcrumbList>
       </Breadcrumb>
