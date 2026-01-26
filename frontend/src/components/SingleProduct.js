@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Separator } from "./ui/separator";
 import useCart from "@/stores/cartStore";
+import useProducts from "@/stores/productStore";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -12,8 +13,8 @@ import { toast } from "sonner";
 
 const SingleProduct = ({ id }) => {
   const { cart, getCart, updateQty } = useCart();
+  const { singleProduct, getSingleProduct } = useProducts();
 
-  const [product, setProduct] = useState(null);
   const [image, setImage] = useState(null);
   const [quantities, setQuantities] = useState({});
 
@@ -21,34 +22,15 @@ const SingleProduct = ({ id }) => {
     getCart();
   }, []);
 
-  const getProduct = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,
-        { credentials: "include" },
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.message || "Failed to fetch product");
-
-      setProduct(data.product);
-    } catch (error) {
-      console.log(error.message);
-
-      toast.error(error.message);
-    }
-  };
-
   useEffect(() => {
-    getProduct();
+    getSingleProduct(id);
   }, [id]);
 
   useEffect(() => {
-    if (product?.imageURLs?.length) {
-      setImage(product.imageURLs[0]);
+    if (singleProduct?.imageURLs?.length) {
+      setImage(singleProduct.imageURLs[0]);
     }
-  }, [product]);
+  }, [singleProduct]);
 
   const updateQtyOnPage = (id, change) => {
     setQuantities((prev) => ({
@@ -88,16 +70,18 @@ const SingleProduct = ({ id }) => {
 
   let existingItem;
   if (Array.isArray(cart?.items) && cart.items.length) {
-    existingItem = cart.items.find((i) => i.productID?._id === product?._id);
+    existingItem = cart.items.find(
+      (i) => i.productID?._id === singleProduct?._id,
+    );
   }
 
-  if (product) {
+  if (singleProduct) {
     const currentQty = existingItem
       ? existingItem.quantity
-      : quantities[product?._id] || 1;
+      : quantities[singleProduct?._id] || 1;
 
     const isMin = currentQty <= 1;
-    const isMax = currentQty >= product?.stock;
+    const isMax = currentQty >= singleProduct?.stock;
 
     return (
       <div className="max-w-7xl mx-auto px-4 py-10 space-y-12">
@@ -122,7 +106,7 @@ const SingleProduct = ({ id }) => {
             )}
 
             <div className="w-full flex items-center gap-2 overflow-x-auto">
-              {product?.imageURLs.map((img, idx) => (
+              {singleProduct?.imageURLs.map((img, idx) => (
                 <Card
                   key={idx}
                   onClick={() => setImage(img)}
@@ -144,15 +128,15 @@ const SingleProduct = ({ id }) => {
           </div>
 
           <div className="space-y-5">
-            <h1 className="text-3xl font-bold">{product?.title}</h1>
+            <h1 className="text-3xl font-bold">{singleProduct?.title}</h1>
 
             <div className="flex items-center gap-2">
               <p className="text-2xl text-foreground font-semibold">
-                ${product?.discountPrice || product?.price}
+                ${singleProduct?.discountPrice || singleProduct?.price}
               </p>
-              {product?.discountPrice && (
+              {singleProduct?.discountPrice && (
                 <p className="text-lg text-muted-foreground line-through">
-                  ${product?.price}
+                  ${singleProduct?.price}
                 </p>
               )}
             </div>
@@ -160,7 +144,7 @@ const SingleProduct = ({ id }) => {
             <Separator />
 
             <ul>
-              {product?.features?.map((f, i) => (
+              {singleProduct?.features?.map((f, i) => (
                 <li key={i}>- {f}</li>
               ))}
             </ul>
@@ -173,8 +157,8 @@ const SingleProduct = ({ id }) => {
                 disabled={isMin}
                 onClick={() =>
                   existingItem
-                    ? updateQty(product?._id, -1)
-                    : updateQtyOnPage(product?._id, -1)
+                    ? updateQty(singleProduct?._id, -1)
+                    : updateQtyOnPage(singleProduct?._id, -1)
                 }
                 className="cursor-pointer"
               >
@@ -183,8 +167,8 @@ const SingleProduct = ({ id }) => {
 
               <Button
                 size="lg"
-                disabled={existingItem || product?.stock <= 0}
-                onClick={() => handleAddCart(product?._id)}
+                disabled={existingItem || singleProduct?.stock <= 0}
+                onClick={() => handleAddCart(singleProduct?._id)}
                 className="cursor-pointer"
               >
                 Add to Cart ({currentQty})
@@ -198,8 +182,8 @@ const SingleProduct = ({ id }) => {
                 disabled={isMax}
                 onClick={() =>
                   existingItem
-                    ? updateQty(product?._id, +1)
-                    : updateQtyOnPage(product?._id, +1)
+                    ? updateQty(singleProduct?._id, +1)
+                    : updateQtyOnPage(singleProduct?._id, +1)
                 }
                 className="cursor-pointer"
               >
@@ -207,7 +191,7 @@ const SingleProduct = ({ id }) => {
               </Button>
             </div>
 
-            {product?.stock <= 0 && (
+            {singleProduct?.stock <= 0 && (
               <p className="text-sm text-destructive">Out of stock</p>
             )}
           </div>
@@ -217,7 +201,7 @@ const SingleProduct = ({ id }) => {
           <CardContent className="p-6 space-y-4">
             <h2 className="text-xl font-semibold">Product Description</h2>
             <p className="text-muted-foreground text-sm">
-              {product?.description}
+              {singleProduct?.description}
             </p>
           </CardContent>
         </Card>

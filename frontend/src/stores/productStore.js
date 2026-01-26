@@ -11,6 +11,7 @@ const useProducts = create((set, get) => ({
   products: [],
   totalProducts: null,
   bestSellers: [],
+  singleProduct: null,
 
   setSearch: (search) => {
     set({ search });
@@ -75,6 +76,22 @@ const useProducts = create((set, get) => ({
       const data = await res.json();
 
       set({ bestSellers: data.bestSellers });
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+  getSingleProduct: async (id) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,
+        { credentials: "include" },
+      );
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.message || "Failed to fetch product");
+
+      set({ singleProduct: data.product });
     } catch (error) {
       console.log(error.message);
     }
