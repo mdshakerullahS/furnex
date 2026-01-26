@@ -25,7 +25,6 @@ import {
 } from "@/components/ui/pagination";
 import useProducts from "@/stores/productStore";
 import { usePathname, useRouter } from "next/navigation";
-import SearchForm from "@/components/SearchForm";
 
 const Page = () => {
   const router = useRouter();
@@ -126,10 +125,6 @@ const Page = () => {
             </Select>
           </div>
         </div>
-      </div>
-
-      <div className="mt-2 md:hidden">
-        <SearchForm />
       </div>
 
       <div className="flex">
