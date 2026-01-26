@@ -99,7 +99,7 @@ const Header = () => {
               className="w-5 h-5 group-hover:text-primary transition-colors"
             />
             <span className="absolute top-0 right-0 h-4 w-4 bg-primary text-[10px] font-bold text-background rounded-full flex items-center justify-center border-2 border-white">
-              {cart.items?.length}
+              {cart.items?.length || 0}
             </span>
           </Link>
 
