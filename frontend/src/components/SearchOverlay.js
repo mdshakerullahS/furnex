@@ -67,7 +67,7 @@ const SearchOverlay = ({ isOpen, onClose }) => {
             <h2 className="text-4xl font-serif">What are you looking for?</h2>
           </div>
 
-          <div className="relative w-full border-b-2 border-primary/20 pb-4 focus-within:border-primary transition-colors">
+          <div className="relative w-full bg-background border-b-2 border-primary/20 px-4 pb-4 focus-within:border-primary transition-colors">
             {/* You can wrap your existing SearchForm here or style it directly */}
             <div className="flex items-center gap-4">
               <SearchIcon className="w-6 h-6 text-muted-foreground" />
