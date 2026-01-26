@@ -139,9 +139,9 @@ export const getBestSellers = async (_, res, next) => {
 
 export const getSingleProduct = async (req, res, next) => {
   try {
-    const product = await Product.findById(req.params.id).select(
-      "-cloudinaryIDs",
-    );
+    const product = await Product.findById(req.params.id)
+      .select("-cloudinaryIDs")
+      .populate("categoryID");
 
     if (!product) {
       return res.status(404).json({
