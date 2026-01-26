@@ -1,5 +1,4 @@
 import { Hammer, HeartHandshake, Leaf, Palette } from "lucide-react";
-import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 const features = [
   {
@@ -11,7 +10,7 @@ const features = [
   {
     title: "Ethically Sourced",
     description:
-      " We use sustainably harvested wood and eco-friendly finishes to protect our planet's future.",
+      "We use sustainably harvested wood and eco-friendly finishes to protect our planet's future.",
     icon: Leaf,
   },
   {
@@ -30,22 +29,46 @@ const features = [
 
 const Features = () => {
   return (
-    <section className="px-2 md:px-4 lg:px-8 py-6 my-12 space-y-6">
-      <h2 className="text-2xl text-center text-accent-foreground font-bold">
-        Why Choose Us
-      </h2>
+    <section className="max-w-7xl mx-auto px-6 py-24">
+      {/* Editorial Header */}
+      <div className="flex flex-col items-center mb-20 text-center">
+        <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs mb-4">
+          The Furniro Difference
+        </span>
+        <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground max-w-2xl leading-tight">
+          Crafting a legacy <br /> More than furniture
+        </h2>
+        <div className="h-px w-20 bg-primary/20 mt-6" />
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-        {features.map((feat) => (
-          <Card key={feat.title} className="group">
-            <CardHeader>
-              <div className="w-14 h-14 bg-accent rounded-xl flex items-center justify-center mb-6 group-hover:bg-accent transition-colors">
-                <feat.icon className="text-primary w-7 h-7 group-hover:text-accent-foreground transition-colors" />
-              </div>
-              <CardTitle>{feat.title}</CardTitle>
-              <CardDescription>{feat.description}</CardDescription>
-            </CardHeader>
-          </Card>
+      {/* Feature Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-16">
+        {features.map((feat, index) => (
+          <div
+            key={feat.title}
+            className="group flex flex-col items-start transition-all duration-300 hover:-translate-y-2"
+          >
+            {/* Minimalist Icon Treatment */}
+            <div className="relative mb-8">
+              <div className="absolute inset-0 bg-primary/5 rounded-full scale-150 group-hover:bg-primary/10 transition-colors" />
+              <feat.icon
+                strokeWidth={1.5}
+                className="relative z-10 text-primary w-8 h-8 transition-transform duration-500 group-hover:rotate-12"
+              />
+            </div>
+
+            {/* Content */}
+            <h3 className="text-xl font-semibold mb-4 text-foreground flex items-center">
+              {feat.title}
+            </h3>
+
+            <p className="text-muted-foreground leading-relaxed">
+              {feat.description}
+            </p>
+
+            {/* Subtle bottom indicator */}
+            <div className="w-0 h-0.5 bg-primary mt-6 transition-all duration-500 group-hover:w-1/4" />
+          </div>
         ))}
       </div>
     </section>
