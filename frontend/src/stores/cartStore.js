@@ -3,6 +3,43 @@ import { create } from "zustand";
 
 const useCart = create((set, get) => ({
   cart: {},
+  quantities: {},
+
+  setQuantities: (qty) => {
+    set({ quantities: qty });
+  },
+
+  addCart: async (id) => {
+    const { quantities } = get();
+    const qty = quantities[id] || 1;
+
+    try {
+      let guestID = localStorage.getItem("guestID");
+      if (!guestID) {
+        guestID = crypto.randomUUID();
+        localStorage.setItem("guestID", guestID);
+      }
+
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "Application/json" },
+        body: JSON.stringify({ productID: id, quantity: qty, guestID }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Failed adding product to cart");
+      }
+
+      get().getCart();
+
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  },
 
   getCart: async () => {
     try {
@@ -15,7 +52,7 @@ const useCart = create((set, get) => ({
           credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ guestID }),
-        }
+        },
       );
 
       const data = await res.json();
@@ -41,7 +78,7 @@ const useCart = create((set, get) => ({
           credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ guestID, productID, quantity }),
-        }
+        },
       );
 
       if (!res.ok) throw new Error("Failed to update Qty");
@@ -66,7 +103,7 @@ const useCart = create((set, get) => ({
           credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ guestID, productID }),
-        }
+        },
       );
 
       if (!res.ok) throw new Error("Failed to remove item");
@@ -90,7 +127,7 @@ const useCart = create((set, get) => ({
           credentials: "include",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ guestID }),
-        }
+        },
       );
 
       const data = await res.json();
