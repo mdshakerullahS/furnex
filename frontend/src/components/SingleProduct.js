@@ -9,14 +9,13 @@ import useProducts from "@/stores/productStore";
 import { Minus, Plus, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 const SingleProduct = ({ id }) => {
-  const { cart, getCart, updateQty } = useCart();
+  const { cart, addCart, quantities, setQuantities, getCart, updateQty } =
+    useCart();
   const { singleProduct, getSingleProduct } = useProducts();
 
   const [image, setImage] = useState(null);
-  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     getCart();
@@ -37,35 +36,6 @@ const SingleProduct = ({ id }) => {
       ...prev,
       [id]: Math.max(1, (prev[id] || 1) + change),
     }));
-  };
-
-  const handleAddCart = async (id) => {
-    const qty = quantities[id] || 1;
-
-    try {
-      let guestID = localStorage.getItem("guestID");
-      if (!guestID) {
-        guestID = crypto.randomUUID();
-        localStorage.setItem("guestID", guestID);
-      }
-
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/cart`, {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "Application/json" },
-        body: JSON.stringify({ productID: id, quantity: qty, guestID }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Failed adding product to cart");
-      }
-
-      toast.success("Product added to cart");
-    } catch (error) {
-      toast.error("Failed adding product to cart");
-    }
   };
 
   let existingItem;
@@ -168,7 +138,7 @@ const SingleProduct = ({ id }) => {
               <Button
                 size="lg"
                 disabled={existingItem || singleProduct?.stock <= 0}
-                onClick={() => handleAddCart(singleProduct?._id)}
+                onClick={() => addCart(singleProduct?._id)}
                 className="cursor-pointer"
               >
                 Add to Cart ({currentQty})
