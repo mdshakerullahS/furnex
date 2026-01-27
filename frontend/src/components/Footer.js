@@ -109,7 +109,7 @@ const Footer = () => {
               ].map((item) => (
                 <li key={item}>
                   <Link
-                    href={`/${item.toLowerCase()}`}
+                    href={`/${item.replace(" ", "-").toLowerCase()}`}
                     className="text-muted-foreground hover:text-primary transition-all text-sm"
                   >
                     {item}
