@@ -38,7 +38,6 @@ const Page = () => {
     setSelectedCategory,
     search,
     sortBy,
-
     setSortBy,
     limit,
     setLimit,
@@ -73,7 +72,7 @@ const Page = () => {
 
   useEffect(() => {
     getCategories();
-  }, [getCategories]);
+  }, []);
 
   const totalPages = totalProducts > 0 ? Math.ceil(totalProducts / limit) : 1;
 
