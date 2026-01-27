@@ -2,8 +2,11 @@ import Image from "next/image";
 import { AspectRatio } from "./ui/aspect-ratio";
 import Link from "next/link";
 import { Eye, ShoppingBag } from "lucide-react";
+import useCart from "@/stores/cartStore";
 
 const Products = ({ products }) => {
+  const { addCart } = useCart();
+
   if (!products?.length)
     return (
       <div className="text-center py-36 md:py-56 lg:py-48">
