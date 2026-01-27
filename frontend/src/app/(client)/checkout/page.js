@@ -3,36 +3,37 @@
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import useCart from "@/stores/cartStore";
 import useAuth from "@/stores/userStore";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { ShieldCheck, Truck } from "lucide-react";
 
-export default function Page() {
+export default function CheckoutPage() {
   const { user } = useAuth();
-
   const router = useRouter();
-
+  const [isPending, setIsPending] = useState(false);
+  const { cart, getCart } = useCart();
   const { register, handleSubmit, watch, reset } = useForm();
 
-  const { cart, getCart } = useCart();
   useEffect(() => {
     getCart();
-  }, []);
+  }, [getCart]);
 
   useEffect(() => {
-    if (!cart?.items?.length) {
+    if (cart && cart.items && cart.items.length === 0) {
       router.push("/shop");
     }
-  }, [cart]);
+  }, [cart, router]);
 
   const city = watch("city");
   const street = watch("street");
   const zip = watch("zip");
 
-  const total = Array.isArray(cart.items)
+  const subtotal = Array.isArray(cart?.items)
     ? cart.items.reduce(
         (sum, item) => sum + item.productID.price * item.quantity,
         0,
@@ -48,25 +49,21 @@ export default function Page() {
           credentials: "include",
         },
       );
-
       const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to send OTP");
 
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to send OTP");
-      } else {
-        router.push("/verify-otp?redirect=checkout");
-
-        toast.success(data.message);
-      }
+      router.push("/verify-otp?redirect=checkout");
+      toast.success("Verification code sent to your email");
     } catch (err) {
       toast.error(err.message);
     }
   };
 
   const onSubmit = async (data) => {
+    setIsPending(true);
     try {
       if (!user?.isVerified) {
-        requestOTP();
+        await requestOTP();
         return;
       }
 
@@ -83,95 +80,170 @@ export default function Page() {
       });
 
       const result = await res.json();
-
       if (!res.ok) {
         toast.error(result.message);
       } else {
-        toast.success("Order placed successfully");
+        toast.success("Order placed successfully!");
+        reset();
+        router.push("/shop"); // Ideally redirect to an /order-success/[id] page
       }
-
-      reset();
-
-      router.push("/shop");
     } catch (error) {
       toast.error("Failed to place order");
+    } finally {
+      setIsPending(false);
     }
   };
 
   return (
-    <div className="flex flex-col md:flex-row justify-center gap-8 md:gap-[6%] lg:gap-[10%] p-2 mb-20">
-      <div className="w-full max-w-[480px]">
-        <form className="space-y-8">
-          <div className="w-full">
-            <h3 className="text-2xl font-bold mb-4">Customer Info</h3>
+    <div className="max-w-7xl mx-auto px-6 py-12 md:py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        {/* --- Left: Billing & Shipping (Span 7) --- */}
+        <div className="lg:col-span-7 space-y-12">
+          <section className="space-y-8">
+            <h2 className="text-3xl font-serif font-medium">Billing Details</h2>
 
-            <FieldGroup className="gap-4">
-              <Field className="gap-2">
-                <FieldLabel htmlFor="fullName">Full name</FieldLabel>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Field className="space-y-2">
+                <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Full Name
+                </FieldLabel>
                 <Input
-                  id="fullName"
-                  placeholder={user?.name}
+                  value={user?.name || ""}
                   readOnly
-                  className="cursor-not-allowed"
+                  className="h-12 bg-secondary/20 border-transparent cursor-not-allowed rounded-xl"
                 />
               </Field>
-              <Field className="gap-2">
-                <FieldLabel htmlFor="email">Email Address</FieldLabel>
+              <Field className="space-y-2">
+                <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Email Address
+                </FieldLabel>
                 <Input
-                  id="email"
-                  placeholder={user?.email}
+                  value={user?.email || ""}
                   readOnly
-                  className="cursor-not-allowed"
+                  className="h-12 bg-secondary/20 border-transparent cursor-not-allowed rounded-xl"
                 />
               </Field>
-            </FieldGroup>
+            </div>
+
+            <div className="space-y-6 pt-4">
+              <h3 className="text-xl font-serif">Shipping Address</h3>
+              <FieldGroup className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <Field className="md:col-span-2 space-y-2">
+                  <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    Street Address
+                  </FieldLabel>
+                  <Input
+                    id="street"
+                    placeholder="House number and street name"
+                    className="h-12 rounded-xl focus:ring-primary"
+                    {...register("street", { required: true })}
+                  />
+                </Field>
+                <Field className="space-y-2">
+                  <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    Town / City
+                  </FieldLabel>
+                  <Input
+                    id="city"
+                    placeholder="New York"
+                    className="h-12 rounded-xl"
+                    {...register("city", { required: true })}
+                  />
+                </Field>
+                <Field className="space-y-2">
+                  <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    ZIP Code
+                  </FieldLabel>
+                  <Input
+                    id="zip"
+                    placeholder="10001"
+                    className="h-12 rounded-xl"
+                    {...register("zip", { required: true })}
+                  />
+                </Field>
+              </FieldGroup>
+            </div>
+          </section>
+
+          <div className="p-6 bg-primary/5 rounded-2xl flex items-center gap-4 border border-primary/10">
+            <Truck className="text-primary w-6 h-6" />
+            <p className="text-sm text-muted-foreground">
+              <span className="font-bold text-foreground">Free Shipping:</span>{" "}
+              Your order qualifies for our complimentary premium delivery
+              service.
+            </p>
           </div>
-
-          <div>
-            <h3 className="text-2xl font-bold mb-4">Shipping Address</h3>
-
-            <FieldGroup className="gap-4">
-              <Field className="gap-2">
-                <FieldLabel htmlFor="city">Town/City</FieldLabel>
-                <Input id="city" {...register("city")} />
-              </Field>
-              <Field className="gap-2">
-                <FieldLabel htmlFor="street">Street Address</FieldLabel>
-                <Input id="street" {...register("street")} />
-              </Field>
-              <Field className="gap-2">
-                <FieldLabel htmlFor="zip">ZIP Code</FieldLabel>
-                <Input id="zip" {...register("zip")} />
-              </Field>
-            </FieldGroup>
-          </div>
-        </form>
-      </div>
-
-      <div className="w-full md:w-[300px] space-y-2 mt-16">
-        <div className="flex justify-between">
-          <p className="font-semibold">Subtotal</p>
-          <p className="text-muted-foreground font-semibold">
-            ${total.toFixed(2)}
-          </p>
         </div>
 
-        <div className="flex justify-between">
-          <p className="font-semibold">Total</p>
-          <p className="text-muted-foreground font-semibold">
-            ${total.toFixed(2)}
-          </p>
-        </div>
+        {/* --- Right: Order Summary (Span 5) --- */}
+        <div className="lg:col-span-5">
+          <div className="bg-white border border-border/60 rounded-3xl p-8 md:p-10 shadow-sm">
+            <h3 className="text-2xl font-serif mb-8 text-center">Your Order</h3>
 
-        <div className="flex items-center justify-center mt-12">
-          <Button
-            disabled={!city || !street || !zip}
-            aria-label="Place order"
-            onClick={handleSubmit(onSubmit)}
-            className="cursor-pointer"
-          >
-            Place Order
-          </Button>
+            <div className="space-y-4 mb-8">
+              <div className="flex justify-between text-sm uppercase tracking-widest font-bold text-muted-foreground/60">
+                <span>Product</span>
+                <span>Subtotal</span>
+              </div>
+              <Separator />
+              {cart?.items?.map((item) => (
+                <div
+                  key={item.productID._id}
+                  className="flex justify-between text-sm"
+                >
+                  <p className="text-muted-foreground">
+                    {item.productID.title}{" "}
+                    <span className="text-foreground font-bold ml-2">
+                      × {item.quantity}
+                    </span>
+                  </p>
+                  <span className="font-medium">
+                    ${(item.productID.price * item.quantity).toFixed(2)}
+                  </span>
+                </div>
+              ))}
+              <Separator />
+              <div className="flex justify-between items-center py-2">
+                <span className="text-sm font-medium">Subtotal</span>
+                <span className="text-lg font-medium">
+                  ${subtotal.toFixed(2)}
+                </span>
+              </div>
+              <div className="flex justify-between items-center pb-2">
+                <span className="text-sm text-primary font-bold uppercase tracking-widest text-[10px]">
+                  Total
+                </span>
+                <span className="text-3xl font-bold text-primary">
+                  ${subtotal.toFixed(2)}
+                </span>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <div className="text-[11px] leading-relaxed text-muted-foreground text-center italic">
+                Your personal data will be used to support your experience
+                throughout this website, to manage access to your account, and
+                for other purposes described in our{" "}
+                <span className="font-bold text-foreground">
+                  privacy policy
+                </span>
+                .
+              </div>
+
+              <Button
+                disabled={!city || !street || !zip || isPending}
+                onClick={handleSubmit(onSubmit)}
+                className="w-full h-14 rounded-full font-bold uppercase tracking-widest text-xs shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all gap-3"
+              >
+                {isPending
+                  ? "Processing..."
+                  : user?.isVerified
+                    ? "Place Order"
+                    : "Verify & Place Order"}
+                <ShieldCheck className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
