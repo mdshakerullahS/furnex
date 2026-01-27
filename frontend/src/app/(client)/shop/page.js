@@ -174,7 +174,7 @@ const Page = () => {
         <div className="flex-1">
           <Suspense fallback={<ShopLoadingSkeleton />}>
             <div className="min-h-[60vh]">
-              <Products products={products} />
+              <Products products={products} showFilter={showFilter} />
             </div>
           </Suspense>
 

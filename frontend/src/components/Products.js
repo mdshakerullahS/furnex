@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Eye, ShoppingBag } from "lucide-react";
 import useCart from "@/stores/cartStore";
 
-const Products = ({ products }) => {
+const Products = ({ products, showFilter }) => {
   const { addCart } = useCart();
 
   if (!products?.length)
@@ -15,7 +15,9 @@ const Products = ({ products }) => {
     );
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+    <div
+      className={`grid grid-cols-1 ${showFilter ? "sm:grid-cols-1 lg:grid-cols-3" : "sm:grid-cols-2 lg:grid-cols-4"} gap-x-8 gap-y-16`}
+    >
       {products.map((product) => {
         const outOfStock = product.stock <= 0;
         const hasDiscount = product.discountPrice;
