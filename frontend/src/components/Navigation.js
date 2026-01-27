@@ -56,7 +56,7 @@ const Navigation = ({ isMobileOpen, setIsMobileOpen }) => {
 
       {/* Drawer */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-[85%] max-w-[400px] bg-background shadow-2xl transition-transform duration-500 ease-in-out ${
+        className={`fixed top-0 right-0 z-50 h-screen w-[85%] max-w-[400px] bg-background shadow-2xl transition-transform duration-500 ease-in-out ${
           isMobileOpen ? "translate-x-0" : "translate-x-full"
         } flex flex-col`}
       >
