@@ -3,7 +3,7 @@ import { create } from "zustand";
 const useProducts = create((set, get) => ({
   search: "",
   selectedCategory: "",
-  sortBy: "default",
+  sortBy: "newest-first",
   limit: 12,
   currentPage: 1,
   minPrice: 0,

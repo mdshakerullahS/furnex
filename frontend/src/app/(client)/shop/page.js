@@ -136,11 +136,11 @@ const Page = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="default">Newest</SelectItem>
-                  <SelectItem value="price_low_high">
+                  <SelectItem value="newest-first">Newest First</SelectItem>
+                  <SelectItem value="price-low-high">
                     Price: Low to High
                   </SelectItem>
-                  <SelectItem value="price_high_low">
+                  <SelectItem value="price-high-low">
                     Price: High to Low
                   </SelectItem>
                 </SelectContent>

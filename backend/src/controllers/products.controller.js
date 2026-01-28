@@ -86,9 +86,9 @@ export const getProducts = async (req, res, next) => {
     }
 
     let sort = {};
-    if (sortBy === "default") sort = { createdAt: -1 };
-    else if (sortBy === "price_low_high") sort = { price: 1 };
-    else if (sortBy === "price_high_low") sort = { price: -1 };
+    if (sortBy === "newest-first") sort = { createdAt: -1 };
+    else if (sortBy === "price-low-high") sort = { price: 1 };
+    else if (sortBy === "price-high-low") sort = { price: -1 };
 
     const skip = (currentPage - 1) * limit;
 
