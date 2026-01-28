@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "../../public/Logo.png";
 import { Search, ShoppingCart, User, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import Navigation from "./Navigation";
@@ -41,7 +40,7 @@ const Header = () => {
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative overflow-hidden">
             <Image
-              src={logo}
+              src="/Logo.png"
               width={32}
               height={32}
               alt="Furniro"
@@ -99,7 +98,7 @@ const Header = () => {
               className="w-5 h-5 group-hover:text-primary transition-colors"
             />
             <span className="absolute top-0 right-0 h-4 w-4 bg-primary text-[10px] font-bold text-background rounded-full flex items-center justify-center border-2 border-white">
-              {cart.items?.length || 0}
+              {cart?.items?.length || 0}
             </span>
           </Link>
 
