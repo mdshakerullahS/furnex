@@ -29,10 +29,8 @@ export const sendOTPMail = async (email, otp) => {
     `;
 
     const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
-    console.log("Email sent successfully via Brevo API");
     return result;
   } catch (error) {
-    console.error("Brevo API Error:", error.response?.body || error.message);
     throw new Error("Failed to send OTP email");
   }
 };

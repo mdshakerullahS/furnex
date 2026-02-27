@@ -189,8 +189,6 @@ export const login = async (req, res, next) => {
       message: "Logged in successfully",
     });
   } catch (err) {
-    console.log(err.message);
-
     next(err);
   }
 };

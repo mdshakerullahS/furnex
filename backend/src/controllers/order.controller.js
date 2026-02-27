@@ -76,8 +76,6 @@ export const getOrders = async (_, res, next) => {
       .populate("customerID")
       .populate("items.productID");
 
-    console.log(orders);
-
     return res.status(200).json({ orders });
   } catch (err) {
     next(err);
@@ -105,7 +103,7 @@ export const updateOrder = async (req, res, next) => {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
       { status: req.body.status },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true },
     );
 
     if (!updatedOrder) {
