@@ -20,16 +20,16 @@ export const register = async (req, res, next) => {
       });
     }
 
+    if (password !== confirmPass) {
+      return res.status(400).json({
+        message: "Passwords in the both fields should be the same",
+      });
+    }
+
     const isUserExists = await User.findOne({ email });
     if (isUserExists) {
       return res.status(400).json({
         message: "User already exists",
-      });
-    }
-
-    if (password !== confirmPass) {
-      return res.status(400).json({
-        message: "Passwords in the both fields should be the same",
       });
     }
 
