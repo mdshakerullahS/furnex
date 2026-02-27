@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import OTP from "../models/OTP.model.js";
-import { genOTP, saveOTP, sendOTPMail } from "../services/email.service.js";
+import { saveOTP, sendOTPMail } from "../services/email.service.js";
 import User from "../models/user.model.js";
 
 export const reqOTP = async (req, res, next) => {
@@ -17,7 +17,7 @@ export const reqOTP = async (req, res, next) => {
       email = user.email;
     }
 
-    const otp = genOTP();
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
     await saveOTP(email, otp);
     await sendOTPMail(email, otp);
