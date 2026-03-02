@@ -2,7 +2,6 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import connectDB from "./src/config/db.js";
 
 import authRoutes from "./src/routes/auth.routes.js";
 import otpRoutes from "./src/routes/otp.routes.js";
@@ -25,9 +24,6 @@ app.use(
     credentials: true,
   }),
 );
-
-// DB Connection
-connectDB();
 
 // Routes
 app.use("/api/auth", authRoutes);
