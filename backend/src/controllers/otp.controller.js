@@ -1,7 +1,6 @@
 import bcrypt from "bcryptjs";
 import OTP from "../models/OTP.model.js";
 import { saveOTP, sendOTPMail } from "../services/email.service.js";
-import User from "../models/user.model.js";
 
 export const reqOTP = async (req, res, next) => {
   try {
