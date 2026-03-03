@@ -195,12 +195,9 @@ export const login = async (req, res, next) => {
 
 export const loggedInUser = async (req, res, next) => {
   try {
-    const userID = req.user?._id;
+    const user = req.user;
 
-    const user = await User.findOne({ _id: userID }).select("-password");
-
-    if (userID && !user)
-      return res.status(401).json({ message: "User not found" });
+    if (!user) return res.status(401).json({ message: "User not found" });
 
     return res.status(200).json({ user });
   } catch (error) {
