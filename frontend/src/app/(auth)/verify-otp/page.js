@@ -12,7 +12,7 @@ import { Suspense, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const OTPForm = () => {
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect");
@@ -31,7 +31,7 @@ const OTPForm = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ otp: value }),
-        }
+        },
       );
 
       const data = await res.json();
@@ -39,7 +39,7 @@ const OTPForm = () => {
       if (!res.ok) {
         throw new Error(data.message || "Failed to verify OTP");
       } else {
-        setUser(data.user);
+        setUser({ ...user, isVerified: data.isVerified });
         toast.success(data.message);
         setValue("");
 
