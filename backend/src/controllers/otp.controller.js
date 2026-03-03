@@ -5,22 +5,15 @@ import User from "../models/user.model.js";
 
 export const reqOTP = async (req, res, next) => {
   try {
-    const userID = req.user?._id;
-    const email = req.user?.email;
+    const user = req.user;
 
-    if (!userID)
+    if (!user)
       return res.status(401).json({ message: "Not authorized, please login" });
-
-    if (!email) {
-      const user = await User.findById(userID);
-      if (!user) return res.status(404).json({ message: "User not found" });
-      email = user.email;
-    }
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-    await saveOTP(email, otp);
-    await sendOTPMail(email, otp);
+    await saveOTP(user.email, otp);
+    await sendOTPMail(user.email, otp);
 
     return res.status(200).json({ message: "OTP sent to your email" });
   } catch (err) {
@@ -32,8 +25,7 @@ export const verifyOTP = async (req, res, next) => {
   try {
     const { otp } = req.body;
 
-    const userID = req.user._id;
-    const user = await User.findOne({ _id: userID }).select("-password");
+    const user = req.user;
 
     const record = await OTP.findOne({ email: user.email });
     if (!record) return res.status(404).json({ message: "Invalid OTP" });
@@ -51,11 +43,7 @@ export const verifyOTP = async (req, res, next) => {
     await OTP.deleteOne({ email: user.email });
 
     return res.status(200).json({
-      user: {
-        name: user.name,
-        email: user.email,
-        isVerified: user.isVerified,
-      },
+      isVerified: user.isVerified,
       message: "OTP verified",
     });
   } catch (err) {
