@@ -1,17 +1,26 @@
 import bcrypt from "bcryptjs";
 import OTP from "../models/OTP.model.js";
-import Brevo from "@getbrevo/brevo";
+import {
+  TransactionalEmailsApi,
+  TransactionalEmailsApiApiKeys,
+  SendSmtpEmail,
+} from "@getbrevo/brevo";
+
+export const genOTP = () => {
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  return otp;
+};
 
 export const sendOTPMail = async (email, otp) => {
   try {
-    const apiInstance = new Brevo.TransactionalEmailsApi();
+    const apiInstance = new TransactionalEmailsApi();
 
     apiInstance.setApiKey(
-      Brevo.TransactionalEmailsApiApiKeys.apiKey,
+      TransactionalEmailsApiApiKeys.apiKey,
       process.env.BREVO_API_KEY,
     );
 
-    const sendSmtpEmail = new Brevo.SendSmtpEmail();
+    const sendSmtpEmail = new SendSmtpEmail();
 
     sendSmtpEmail.subject = "Your OTP Verification Code";
     sendSmtpEmail.sender = {

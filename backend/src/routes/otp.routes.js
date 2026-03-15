@@ -1,11 +1,15 @@
 import express from "express";
 
 import { checkUser } from "../middlewares/checkUser.js";
-import { reqOTP, verifyOTP } from "../controllers/otp.controller.js";
+import { createOTPController } from "../controllers/otp.controller.js";
 
-const router = express.Router();
+export const createOTPRouter = (deps) => {
+  const router = express.Router();
 
-router.post("/request-otp", checkUser, reqOTP);
-router.post("/verify-otp", checkUser, verifyOTP);
+  const controller = createOTPController(deps);
 
-export default router;
+  router.post("/request-otp", checkUser, controller.reqOTP);
+  router.post("/verify-otp", checkUser, controller.verifyOTP);
+
+  return router;
+};
