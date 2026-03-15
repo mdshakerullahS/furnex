@@ -4,43 +4,49 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import authRoutes from "./src/routes/auth.routes.js";
-import otpRoutes from "./src/routes/otp.routes.js";
+import { createOTPRouter } from "./src/routes/otp.routes.js";
 import categoryRoutes from "./src/routes/category.routes.js";
 import productRoutes from "./src/routes/product.routes.js";
 import cartRoutes from "./src/routes/cart.routes.js";
 import orderRoutes from "./src/routes/order.routes.js";
 import messageRoutes from "./src/routes/message.routes.js";
+import { genOTP, sendOTPMail } from "./src/services/email.service.js";
 
 dotenv.config();
 
-const app = express();
+export const createApp = (dep) => {
+  const app = express();
+  app.use(express.json({ limit: "50mb" }));
 
-// Middlewares
-app.use(express.json({ limit: "50mb" }));
-app.use(cookieParser());
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true,
-  }),
-);
+  // Middlewares
+  app.use(cookieParser());
+  app.use(
+    cors({
+      origin: process.env.FRONTEND_URL,
+      credentials: true,
+    }),
+  );
 
-// Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/otp", otpRoutes);
-app.use("/api/categories", categoryRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/cart", cartRoutes);
-app.use("/api/orders", orderRoutes);
-app.use("/api/messages", messageRoutes);
+  // Routes
+  app.use("/api/auth", authRoutes);
+  app.use("/api/otp", createOTPRouter(dep));
+  app.use("/api/categories", categoryRoutes);
+  app.use("/api/products", productRoutes);
+  app.use("/api/cart", cartRoutes);
+  app.use("/api/orders", orderRoutes);
+  app.use("/api/messages", messageRoutes);
 
-// Error middleware
-app.use((err, _, res, __) => {
-  console.log(err.message);
+  // Error middleware
+  app.use((err, _, res, __) => {
+    console.log(err.message);
 
-  return res.status(err.status || 500).json({
-    message: err.message || "Internal server error",
+    return res.status(err.status || 500).json({
+      message: err.message || "Internal server error",
+    });
   });
-});
 
+  return app;
+};
+
+const app = createApp({ genOTP, sendOTPMail });
 export default app;
