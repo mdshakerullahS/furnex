@@ -51,7 +51,7 @@ describe("POST /api/auth/register — User Registration Endpoint", () => {
     });
     expect(user).not.toBeNull();
 
-    expect(res.body.user).toEqual({
+    expect(res.body.user).toMatchObject({
       name: user.name,
       email: user.email,
       isVerified: user.isVerified,

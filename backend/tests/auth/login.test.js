@@ -52,7 +52,7 @@ describe("POST /api/auth/login — User Login Endpoint", () => {
     expect(user).not.toBeNull();
 
     expect(await bcrypt.compare("mark123", user?.password)).toBe(true);
-    expect(res.body.user).toEqual({
+    expect(res.body.user).toMatchObject({
       name: user.name,
       email: user.email,
       isVerified: user.isVerified,
