@@ -22,8 +22,8 @@ export const addCategory = async (req, res, next) => {
       });
     }
 
-    const imageURL = req.file.path || null;
-    const cloudinaryID = req.file.filename || null;
+    const imageURL = req.file?.path || null;
+    const cloudinaryID = req.file?.filename || null;
 
     await Category.create({ name, imageURL, cloudinaryID });
 
@@ -61,8 +61,8 @@ export const editCategory = async (req, res, next) => {
 
     category.name = name || category.name;
 
-    category.imageURL = req.file.path || category.imageURL;
-    category.cloudinaryID = req.file.filename || category.cloudinaryID;
+    category.imageURL = req.file?.path || category.imageURL;
+    category.cloudinaryID = req.file?.filename || category.cloudinaryID;
 
     await category.save();
 
@@ -84,7 +84,8 @@ export const deleteCategory = async (req, res, next) => {
       });
     }
 
-    await cloudinary.uploader.destroy(category.cloudinaryID);
+    if (category.cloudinaryID)
+      await cloudinary.uploader.destroy(category.cloudinaryID);
 
     await category.deleteOne();
 
