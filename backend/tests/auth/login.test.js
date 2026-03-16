@@ -9,7 +9,7 @@ describe("POST /api/auth/login — User Login Endpoint", () => {
   it("should return 400 when required fields are missing", async () => {
     const res = await request(app).post(route).send({});
 
-    expect(res.statusCode).toBe(400);
+    expect(res.status).toBe(400);
     expect(res.body.message).toBe("All fields are required");
   });
 
@@ -18,7 +18,7 @@ describe("POST /api/auth/login — User Login Endpoint", () => {
       .post(route)
       .send({ email: "invalid-email", password: "mark123" });
 
-    expect(res.statusCode).toBe(400);
+    expect(res.status).toBe(400);
     expect(res.body.message).toBe("Invalid credentials");
   });
 
@@ -27,7 +27,7 @@ describe("POST /api/auth/login — User Login Endpoint", () => {
       .post(route)
       .send({ email: "random@email.com", password: "random-password" });
 
-    expect(res.statusCode).toBe(400);
+    expect(res.status).toBe(400);
     expect(res.body.message).toBe("Invalid credentials");
   });
 
@@ -44,7 +44,7 @@ describe("POST /api/auth/login — User Login Endpoint", () => {
       password: "mark123",
     });
 
-    expect(res.statusCode).toBe(200);
+    expect(res.status).toBe(200);
     expect(res.headers["set-cookie"]).toBeDefined();
     expect(res.body.message).toBe("Logged in successfully");
 

@@ -20,7 +20,7 @@ describe("POST /api/otp/verify-otp — OTP verification endpoint", () => {
 
     const res = await agent.post("/api/otp/verify-otp").send({ otp: "000000" });
 
-    expect(res.statusCode).toBe(404);
+    expect(res.status).toBe(404);
     expect(res.body.message).toBe("Invalid OTP");
   });
 
@@ -40,7 +40,7 @@ describe("POST /api/otp/verify-otp — OTP verification endpoint", () => {
     await agent.post("/api/otp/request-otp");
     const res = await agent.post("/api/otp/verify-otp").send({ otp: "123456" });
 
-    expect(res.statusCode).toBe(200);
+    expect(res.status).toBe(200);
     expect(res.body.message).toBe("OTP verified");
     expect(res.body.isVerified).toBe(true);
   });

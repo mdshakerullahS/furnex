@@ -9,7 +9,7 @@ describe("POST /api/otp/request-otp — OTP request endpoint", () => {
 
     const res = await request(app).post("/api/otp/request-otp");
 
-    expect(res.statusCode).toBe(401);
+    expect(res.status).toBe(401);
     expect(res.body.message).toBe("Not authorized, please login");
   });
 
@@ -27,7 +27,7 @@ describe("POST /api/otp/request-otp — OTP request endpoint", () => {
 
     const res = await agent.post("/api/otp/request-otp");
 
-    expect(res.statusCode).toBe(200);
+    expect(res.status).toBe(200);
     expect(res.body.message).toBe("OTP sent to your email");
   });
 });

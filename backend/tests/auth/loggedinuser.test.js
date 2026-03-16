@@ -5,7 +5,7 @@ describe("GET /api/auth/me — Logged in user Endpoint", () => {
   it("returns 401 if not logged in", async () => {
     const res = await request(app).get("/api/auth/me");
 
-    expect(res.statusCode).toBe(401);
+    expect(res.status).toBe(401);
     expect(res.body.message).toBe("User not found");
   });
 
@@ -21,7 +21,7 @@ describe("GET /api/auth/me — Logged in user Endpoint", () => {
 
     const res = await agent.get("/api/auth/me");
 
-    expect(res.statusCode).toBe(200);
+    expect(res.status).toBe(200);
     expect(res.body.user).toMatchObject({
       name: "Mark Cuban",
       email: "dev@markcuban.com",

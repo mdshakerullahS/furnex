@@ -15,7 +15,7 @@ describe("POST /api/auth/register — User Registration Endpoint", () => {
   it("should return 400 when required fields are missing", async () => {
     const res = await request(app).post(route).send({});
 
-    expect(res.statusCode).toBe(400);
+    expect(res.status).toBe(400);
     expect(res.body.message).toBe("All fields are required");
   });
 
@@ -24,7 +24,7 @@ describe("POST /api/auth/register — User Registration Endpoint", () => {
       .post(route)
       .send({ ...validUser, email: "invalid-email" });
 
-    expect(res.statusCode).toBe(400);
+    expect(res.status).toBe(400);
     expect(res.body.message).toBe("Invalid email");
   });
 
@@ -33,7 +33,7 @@ describe("POST /api/auth/register — User Registration Endpoint", () => {
       .post(route)
       .send({ ...validUser, confirmPass: "mark12" });
 
-    expect(res.statusCode).toBe(400);
+    expect(res.status).toBe(400);
     expect(res.body.message).toBe(
       "Passwords in the both fields should be the same",
     );
@@ -42,7 +42,7 @@ describe("POST /api/auth/register — User Registration Endpoint", () => {
   it("should create a new user and return a 201 status with user data", async () => {
     const res = await request(app).post(route).send(validUser);
 
-    expect(res.statusCode).toBe(201);
+    expect(res.status).toBe(201);
     expect(res.headers["set-cookie"]).toBeDefined();
     expect(res.body.message).toBe("User registered successfully");
 
@@ -61,7 +61,7 @@ describe("POST /api/auth/register — User Registration Endpoint", () => {
   it("should return 400 when trying to register with an existing email", async () => {
     const res = await request(app).post(route).send(validUser);
 
-    expect(res.statusCode).toBe(400);
+    expect(res.status).toBe(400);
     expect(res.body.message).toBe("User already exists");
   });
 });
