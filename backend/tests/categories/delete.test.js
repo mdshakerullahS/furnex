@@ -3,7 +3,7 @@ import app from "../../app.js";
 import User from "../../src/models/user.model.js";
 import Category from "../../src/models/category.model.js";
 
-describe("DELETE /api/categories — Delete Category endpoint", () => {
+describe("DELETE /api/categories/:id — Delete Category endpoint", () => {
   const route = "/api/categories";
 
   const validCategory = { name: "Table" };

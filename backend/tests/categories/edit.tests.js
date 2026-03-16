@@ -3,7 +3,7 @@ import app from "../../app.js";
 import Category from "../../src/models/category.model.js";
 import User from "../../src/models/user.model.js";
 
-describe("PUT /api/categories — Update Category endpoint", () => {
+describe("PUT /api/categories/:id — Update Category endpoint", () => {
   const route = "/api/categories";
 
   const validCategory = { name: "Table" };
