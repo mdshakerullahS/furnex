@@ -171,7 +171,7 @@ export const updateProduct = async (req, res, next) => {
 
     product.title = title || product.title;
     product.description = description || product.description;
-    product.categoryID = matchedCategory._id || product.categoryID;
+    product.categoryID = matchedCategory?._id || product.categoryID;
     product.price = price || product.price;
     product.discountPrice = discountPrice || product.discountPrice;
     product.stock = stock || product.stock;
