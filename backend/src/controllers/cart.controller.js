@@ -35,7 +35,7 @@ export const addCart = async (req, res, next) => {
     if (!product) return res.status(404).json({ message: "Product not found" });
 
     const existingItem = cart.items.find(
-      (item) => item.productID.toString() === productID
+      (item) => item.productID.toString() === productID,
     );
 
     const totalQuantity = existingItem
@@ -101,21 +101,16 @@ export const updateCart = async (req, res, next) => {
       }
 
       cart = await Cart.findOne({ guestID });
-
-      if (!cart) return res.status(404).json({ message: "Cart not found" });
-    }
-
-    if (customerID) {
+    } else {
       cart = await Cart.findOne({ customerID });
-
-      if (!cart) return res.status(404).json({ message: "Cart not found" });
     }
+    if (!cart) return res.status(404).json({ message: "Cart not found" });
 
     const product = await Product.findById(productID);
     if (!product) return res.status(404).json({ message: "Product not found" });
 
     const cartItem = cart.items.find(
-      (item) => item.productID.toString() === productID
+      (item) => item.productID.toString() === productID,
     );
 
     if (!cartItem) {
@@ -126,7 +121,7 @@ export const updateCart = async (req, res, next) => {
 
     if (cartItem.quantity <= 0) {
       cart.items = cart.items.filter(
-        (item) => item.productID.toString() !== productID
+        (item) => item.productID.toString() !== productID,
       );
     }
 
@@ -157,13 +152,13 @@ export const removeCartItem = async (req, res, next) => {
     }
 
     cart.items = cart.items.filter(
-      (item) => item.productID.toString() !== productID
+      (item) => item.productID.toString() !== productID,
     );
 
     await cart.save();
 
     return res.status(200).json({
-      mess: "Item removed",
+      message: "Item removed",
     });
   } catch (err) {
     next(err);
