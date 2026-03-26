@@ -7,7 +7,10 @@ export const createOrder = async (req, res, next) => {
     const { items, shippingAddress } = req.body;
     const customerID = req.user?._id;
 
-    if (!req.user?.isVerified)
+    if (!req.user)
+      return res.status(401).json({ message: "Log in to place order" });
+
+    if (!req.user.isVerified)
       return res
         .status(401)
         .json({ message: "Verify your email to place order" });
