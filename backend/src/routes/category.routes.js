@@ -16,7 +16,7 @@ router.put(
   "/:id",
   verifyAdmin,
   uploadCategoryImage.single("image"),
-  editCategory
+  editCategory,
 );
 router.delete("/:id", verifyAdmin, deleteCategory);
 

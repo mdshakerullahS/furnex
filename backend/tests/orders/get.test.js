@@ -24,7 +24,7 @@ describe("GET /api/orders — Fetch order endpoint", () => {
       confirmPass: "mark123",
     });
 
-    const user = await User.findOneAndUpdate(
+    await User.findOneAndUpdate(
       { email: "dev@markcuban.com" },
       { role: "admin", isVerified: true },
     );

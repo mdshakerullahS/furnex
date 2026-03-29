@@ -39,7 +39,7 @@ export const sendOTPMail = async (email, otp) => {
 
     const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
     return result;
-  } catch (error) {
+  } catch {
     throw new Error("Failed to send OTP email");
   }
 };

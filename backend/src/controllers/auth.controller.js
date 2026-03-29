@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
-import Cart from "../models/cart.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { handleGuestCart } from "../services/cart.service.js";
 
 export const register = async (req, res, next) => {
   try {
@@ -56,37 +56,7 @@ export const register = async (req, res, next) => {
       maxAge: 168 * 60 * 60 * 1000,
     });
 
-    if (guestID) {
-      const guestCart = await Cart.findOne({ guestID });
-
-      const userID = user._id;
-      let userCart = await Cart.findOne({ customerID: userID });
-
-      if (guestCart) {
-        if (!userCart) {
-          guestCart.customerID = userID;
-          guestCart.guestID = undefined;
-
-          await guestCart.save();
-        } else {
-          for (const guestItem of guestCart.items) {
-            const existingItem = userCart.items.find(
-              (item) =>
-                item.productID.toString() === guestItem.productID.toString(),
-            );
-
-            if (existingItem) {
-              existingItem.quantity += guestItem.quantity;
-            } else {
-              userCart.items.push(guestItem);
-            }
-          }
-
-          await userCart.save();
-          await Cart.deleteOne({ guestID });
-        }
-      }
-    }
+    handleGuestCart(guestID, user._id);
 
     return res.status(201).json({
       user: {
@@ -147,37 +117,7 @@ export const login = async (req, res, next) => {
       maxAge: 168 * 60 * 60 * 1000,
     });
 
-    if (guestID) {
-      const guestCart = await Cart.findOne({ guestID });
-
-      const customerID = user._id;
-      let userCart = await Cart.findOne({ customerID });
-
-      if (guestCart) {
-        if (!userCart) {
-          guestCart.customerID = customerID;
-          guestCart.guestID = undefined;
-
-          await guestCart.save();
-        } else {
-          for (const guestItem of guestCart.items) {
-            const existingItem = userCart.items.find(
-              (item) =>
-                item.productID.toString() === guestItem.productID.toString(),
-            );
-
-            if (existingItem) {
-              existingItem.quantity += guestItem.quantity;
-            } else {
-              userCart.items.push(guestItem);
-            }
-          }
-
-          await userCart.save();
-          await Cart.deleteOne({ guestID });
-        }
-      }
-    }
+    handleGuestCart(guestID, user._id);
 
     return res.status(200).json({
       user: {

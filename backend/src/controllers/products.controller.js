@@ -1,6 +1,7 @@
 import Product from "../models/product.model.js";
 import Category from "../models/category.model.js";
 import Order from "../models/order.model.js";
+import cloudinary from "../config/cloudinary.js";
 
 export const addProduct = async (req, res, next) => {
   try {

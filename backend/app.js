@@ -38,7 +38,7 @@ export const createApp = (dep) => {
 
   // Error middleware
   app.use((err, _, res, __) => {
-    console.log(err.message);
+    console.log(err.message); // eslint-disable-line no-console
 
     return res.status(err.status || 500).json({
       message: err.message || "Internal server error",

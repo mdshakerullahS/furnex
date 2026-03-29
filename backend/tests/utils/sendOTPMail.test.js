@@ -16,7 +16,6 @@ jest.unstable_mockModule("@getbrevo/brevo", () => ({
 }));
 
 const { sendOTPMail } = await import("../../src/services/email.service.js");
-const { TransactionalEmailsApi } = await import("@getbrevo/brevo");
 
 describe("sendOTPMail", () => {
   it("sends OTP email", async () => {

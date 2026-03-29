@@ -12,7 +12,7 @@ const categorySchema = new mongoose.Schema(
     cloudinaryID: String,
     productCount: { type: Number, default: 0 },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 const Category = mongoose.model("Category", categorySchema);
