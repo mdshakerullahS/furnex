@@ -12,18 +12,12 @@ export default defineConfig([
       sourceType: "module",
     },
     rules: {
-      /*
-       * 🔴 Possible Errors (VERY IMPORTANT)
-       */
       "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "no-undef": "error",
       "no-unreachable": "error",
       "no-constant-condition": "warn",
       "no-debugger": "error",
 
-      /*
-       * 🟠 Best Practices
-       */
       eqeqeq: ["error", "always"],
       "no-var": "error",
       "prefer-const": "error",
@@ -31,15 +25,9 @@ export default defineConfig([
       "no-empty": ["error", { allowEmptyCatch: true }],
       "no-shadow": "error",
 
-      /*
-       * 🔵 Node / Backend Focus
-       */
       "no-process-exit": "warn",
-      "no-sync": "warn", // discourage blocking code
+      "no-sync": "warn",
 
-      /*
-       * 🟢 Code Style (strict but not annoying)
-       */
       semi: ["error", "always"],
       quotes: ["error", "double"],
       indent: ["error", 2],
@@ -47,9 +35,6 @@ export default defineConfig([
       "object-curly-spacing": ["error", "always"],
       "arrow-spacing": ["error", { before: true, after: true }],
 
-      /*
-       * 🧼 Clean Code
-       */
       "no-console": "warn",
       "no-trailing-spaces": "error",
       "eol-last": ["error", "always"],
