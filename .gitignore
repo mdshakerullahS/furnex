@@ -36,9 +36,11 @@ Thumbs.db
 # ================================
 # Editor / IDE
 # ================================
-.vscode/
 .idea/
 *.swp
+.vscode/*
+!settings.json
+!extensions.json
 
 # ================================
 # Coverage & Testing
