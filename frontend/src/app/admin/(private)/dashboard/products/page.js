@@ -11,7 +11,7 @@ const Page = () => {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   return (
     <div className="space-y-4">

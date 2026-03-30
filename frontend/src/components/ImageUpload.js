@@ -32,7 +32,7 @@ const ImageUpload = ({ value = [], onChange, maxFiles = 4 }) => {
       const merged = [...value, ...acceptedFiles].slice(0, maxFiles);
       onChange(merged);
     },
-    [value, onChange, maxFiles]
+    [value, onChange, maxFiles],
   );
 
   const removeImage = (index) => {
@@ -56,7 +56,7 @@ const ImageUpload = ({ value = [], onChange, maxFiles = 4 }) => {
       } p-2 transition-all duration-300 cursor-pointer`}
     >
       <Input {...getInputProps()} />
-      {previews.length == 0 ? (
+      {previews.length === 0 ? (
         <div className="text-center space-y-1 p-10">
           {isDragActive ? (
             <p>Drop the files here ...</p>

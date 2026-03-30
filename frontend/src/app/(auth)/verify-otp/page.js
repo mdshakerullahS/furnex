@@ -20,39 +20,39 @@ const OTPForm = () => {
 
   const [value, setValue] = useState("");
 
-  const handleClick = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/otp/verify-otp`,
-        {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ otp: value }),
-        },
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to verify OTP");
-      } else {
-        setUser({ ...user, isVerified: data.isVerified });
-        toast.success(data.message);
-        setValue("");
-
-        router.push(redirect ? redirect : "/");
-      }
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
-
   useEffect(() => {
+    const handleClick = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/otp/verify-otp`,
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ otp: value }),
+          },
+        );
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          throw new Error(data.message || "Failed to verify OTP");
+        } else {
+          setUser({ ...user, isVerified: data.isVerified });
+          toast.success(data.message);
+          setValue("");
+
+          router.push(redirect ? redirect : "/");
+        }
+      } catch (err) {
+        toast.error(err.message);
+      }
+    };
+
     if (value.length === 6) handleClick();
-  }, [value]);
+  }, [value, redirect, router, setUser, user]);
 
   return (
     <div className="h-screen flex flex-col items-center justify-center gap-4">
@@ -60,7 +60,7 @@ const OTPForm = () => {
         <InputOTP
           maxLength={6}
           value={value}
-          onChange={(value) => setValue(value)}
+          onChange={(inputValue) => setValue(inputValue)}
         >
           <InputOTPGroup>
             <InputOTPSlot index={0} />

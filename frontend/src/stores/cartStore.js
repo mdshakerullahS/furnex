@@ -58,12 +58,12 @@ const useCart = create((set, get) => ({
       const data = await res.json();
 
       if (!res.ok) {
-        console.log(data.message);
+        throw new Error(data.message);
       }
 
       set({ cart: data.cart });
     } catch (error) {
-      toast.error("Failed to fetch cart");
+      throw new Error(error.message);
     }
   },
 
@@ -87,7 +87,7 @@ const useCart = create((set, get) => ({
 
       if (quantity === +1) toast.success("Quantity increased");
       if (quantity === -1) toast.success("Quantity decreased");
-    } catch (error) {
+    } catch {
       toast.error("Failed to update quantity");
     }
   },
@@ -111,7 +111,7 @@ const useCart = create((set, get) => ({
       get().getCart();
 
       toast.success("Item removed from cart");
-    } catch (error) {
+    } catch {
       toast.error("Failed to remove item");
     }
   },
@@ -133,13 +133,13 @@ const useCart = create((set, get) => ({
       const data = await res.json();
 
       if (!res.ok) {
-        console.log(data.message);
+        throw new Error(data.message);
       }
 
       get().getCart();
 
       toast.success(data.message);
-    } catch (error) {
+    } catch {
       toast.error("Failed to clear cart");
     }
   },

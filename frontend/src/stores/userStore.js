@@ -18,7 +18,7 @@ const useAuth = create(
             {
               method: "POST",
               credentials: "include",
-            }
+            },
           );
 
           const data = await res.json();
@@ -29,13 +29,13 @@ const useAuth = create(
 
           set({ user: null });
           toast.success(data.message);
-        } catch (error) {
+        } catch {
           toast.error("Failed to logout");
         }
       },
     }),
-    { name: "UserInfo", storage: createJSONStorage(() => localStorage) }
-  )
+    { name: "UserInfo", storage: createJSONStorage(() => localStorage) },
+  ),
 );
 
 export default useAuth;

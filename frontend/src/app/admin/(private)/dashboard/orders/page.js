@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const Page = () => {
   const [orders, setOrders] = useState([]);
@@ -16,12 +17,12 @@ const Page = () => {
       const data = await res.json();
 
       if (!res.ok) {
-        console.log(data.message);
+        throw new Error(data.message);
       }
 
       setOrders(data.orders);
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 

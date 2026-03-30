@@ -19,7 +19,9 @@ const AdminSidebar = () => {
 
   return (
     <aside
-      className={`flex flex-col w-60 px-2 py-4 bg-sidebar/60 border border-sidebar-border backdrop-blur-md transition-all duration-500`}
+      className={
+        "flex flex-col w-60 px-2 py-4 bg-sidebar/60 border border-sidebar-border backdrop-blur-md transition-all duration-500"
+      }
     >
       {sidebarItems.map((item) => {
         const isActive = pathname === item.href;

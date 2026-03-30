@@ -132,8 +132,8 @@ export function ChartAreaInteractive() {
             {timeRange === "90d"
               ? "3 months"
               : timeRange === "30d"
-              ? "30 days"
-              : "7 days"}
+                ? "30 days"
+                : "7 days"}
           </CardDescription>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>

@@ -23,7 +23,7 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (user) router.push("/");
-  }, []);
+  }, [router, user]);
 
   const name = watch("name");
   const email = watch("email");
@@ -48,7 +48,7 @@ const RegisterForm = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
-        }
+        },
       );
 
       const result = await res.json();
@@ -75,7 +75,7 @@ const RegisterForm = () => {
         {
           method: "POST",
           credentials: "include",
-        }
+        },
       );
 
       const data = await res.json();
@@ -84,7 +84,7 @@ const RegisterForm = () => {
         throw new Error(data.message || "Failed to send OTP");
       } else {
         router.push(
-          redirect ? `/verify-otp?redirect=${redirect}` : "/verify-otp"
+          redirect ? `/verify-otp?redirect=${redirect}` : "/verify-otp",
         );
 
         toast.success(data.message);

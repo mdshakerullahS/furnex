@@ -15,7 +15,7 @@ const useCategory = create((set) => ({
 
       set({ categories: data.categories });
     } catch (error) {
-      console.log(error.message);
+      throw new Error(error.message);
     }
   },
 }));

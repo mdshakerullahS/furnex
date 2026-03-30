@@ -14,7 +14,7 @@ const BestSellers = () => {
 
   useEffect(() => {
     getBestSellers();
-  }, []);
+  }, [getBestSellers]);
 
   if (!bestSellers?.length) return null;
 

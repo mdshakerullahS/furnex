@@ -64,9 +64,9 @@ const Testimonials = () => {
                 <div className="bg-[#FAF9F6] rounded-3xl p-8 md:p-16 text-center mx-4 border border-border/40">
                   {/* Subtle Rating */}
                   <div className="flex justify-center gap-1 mb-8">
-                    {[...Array(t.rating)].map((_, i) => (
+                    {[...Array(t.rating)].map((_, starIndex) => (
                       <Star
-                        key={i}
+                        key={starIndex}
                         className="w-4 h-4 fill-[#B88E2F] text-[#B88E2F]"
                       />
                     ))}

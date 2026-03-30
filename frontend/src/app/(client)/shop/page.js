@@ -68,11 +68,14 @@ const Page = () => {
     sortBy,
     currentPage,
     limit,
+    getProducts,
+    pathname,
+    router,
   ]);
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   const totalPages = totalProducts > 0 ? Math.ceil(totalProducts / limit) : 1;
 

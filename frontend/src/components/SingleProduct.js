@@ -17,19 +17,19 @@ const SingleProduct = ({ id }) => {
 
   useEffect(() => {
     getCart();
-  }, []);
+  }, [getCart]);
   useEffect(() => {
     getSingleProduct(id);
-  }, [id]);
+  }, [id, getSingleProduct]);
   useEffect(() => {
     if (singleProduct?.imageURLs?.length)
       setActiveImage(singleProduct.imageURLs[0]);
   }, [singleProduct]);
 
-  const updateQtyOnPage = (id, change) => {
+  const updateQtyOnPage = (productID, change) => {
     setQuantities((prev) => ({
       ...prev,
-      [id]: Math.max(1, (prev[id] || 1) + change),
+      [productID]: Math.max(1, (prev[productID] || 1) + change),
     }));
   };
 

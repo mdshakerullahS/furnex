@@ -65,7 +65,7 @@ const useProducts = create((set, get) => ({
 
       return query.toString();
     } catch (error) {
-      console.log(error.message);
+      throw new Error(error.message);
     }
   },
   getBestSellers: async () => {
@@ -77,7 +77,7 @@ const useProducts = create((set, get) => ({
 
       set({ bestSellers: data.bestSellers });
     } catch (error) {
-      console.log(error.message);
+      throw new Error(error.message);
     }
   },
   getSingleProduct: async (id) => {
@@ -93,7 +93,7 @@ const useProducts = create((set, get) => ({
 
       set({ singleProduct: data.product });
     } catch (error) {
-      console.log(error.message);
+      throw new Error(error.message);
     }
   },
 }));

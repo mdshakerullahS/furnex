@@ -1,13 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
 import useAuth from "@/stores/userStore";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -65,8 +60,8 @@ const LoginForm = () => {
           redirect
             ? redirect
             : result.user.role === "admin"
-            ? "/admin/dashboard"
-            : "/"
+              ? "/admin/dashboard"
+              : "/",
         );
       }
     } catch (err) {

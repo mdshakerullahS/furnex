@@ -10,7 +10,7 @@ const Page = () => {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   return (
     <div className="h-full flex justify-between gap-4">

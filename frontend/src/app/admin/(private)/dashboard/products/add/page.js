@@ -46,7 +46,7 @@ const Page = () => {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   const onSubmit = async (data) => {
     try {

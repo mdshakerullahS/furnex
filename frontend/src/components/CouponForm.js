@@ -11,8 +11,6 @@ const CouponForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log({ categoryName, discount, startsAt, expiresAt });
   };
 
   return (

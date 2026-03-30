@@ -12,7 +12,7 @@ const Categories = () => {
 
   useEffect(() => {
     getCategories();
-  }, []);
+  }, [getCategories]);
 
   if (!categories.length) return null;
 
