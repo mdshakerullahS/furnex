@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import useAuth from "@/stores/userStore";
-import { EyeIcon, EyeOffIcon } from "lucide-react";
+import { EyeIcon, EyeOffIcon, LockKeyhole, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -13,7 +13,6 @@ import { toast } from "sonner";
 
 const RegisterForm = () => {
   const { user, setUser } = useAuth();
-
   const { register, handleSubmit, watch, reset } = useForm();
   const [showPass, setShowPass] = useState(false);
   const [showConfirmPass, setShowConfirmPass] = useState(false);
@@ -22,8 +21,10 @@ const RegisterForm = () => {
   const redirect = searchParams.get("redirect");
 
   useEffect(() => {
-    if (user) router.push("/");
-  }, [router, user]);
+    if (user && !redirect) {
+      router.replace("/");
+    }
+  }, [user, redirect, router]);
 
   const name = watch("name");
   const email = watch("email");
@@ -32,22 +33,12 @@ const RegisterForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const guestID = localStorage.getItem("guestID");
-
-      const payload = {
-        ...data,
-        guestID,
-      };
-
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
         {
           method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
         },
       );
 
@@ -57,37 +48,8 @@ const RegisterForm = () => {
         throw new Error(result.message || "Registration failed");
       } else {
         reset();
-        setUser(result.user);
-        toast.success(result.message);
-
-        requestOTP();
-        toast.success("Verify your email");
-      }
-    } catch (err) {
-      toast.error(err.message);
-    }
-  };
-
-  const requestOTP = async () => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/otp/request-otp`,
-        {
-          method: "POST",
-          credentials: "include",
-        },
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to send OTP");
-      } else {
-        router.push(
-          redirect ? `/verify-otp?redirect=${redirect}` : "/verify-otp",
-        );
-
-        toast.success(data.message);
+        toast.success("Account created! Please login.");
+        router.push(redirect ? `/login?redirect=${redirect}` : "/login");
       }
     } catch (err) {
       toast.error(err.message);
@@ -95,107 +57,147 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="max-w-[600px] h-screen flex flex-col items-center justify-center mx-auto">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FieldGroup className="gap-4">
-          <Field className="gap-2">
-            <FieldLabel htmlFor="name">Full Name</FieldLabel>
-            <Input
-              id="name"
-              type="name"
-              placeholder="John Doe"
-              {...register("name")}
-            />
-          </Field>
-          <Field className="gap-2">
-            <FieldLabel htmlFor="email">Email</FieldLabel>
-            <Input
-              id="email"
-              type="email"
-              placeholder="john@doe.com"
-              {...register("email")}
-            />
-          </Field>
-          <Field className="gap-2">
-            <FieldLabel htmlFor="password">Password</FieldLabel>
-            <div className="relative">
-              <Input
-                id="password"
-                type={showPass ? "text" : "password"}
-                placeholder="******"
-                {...register("password")}
-              />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF9F6] px-6 py-12">
+      <div className="w-full max-w-[480px] bg-white p-8 md:p-12 rounded-[40px] shadow-sm border border-border/40">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-serif mb-3">Join Furniro</h1>
+          <p className="text-muted-foreground text-sm">
+            Create an account to track orders and save your favorites.
+          </p>
+        </div>
 
-              <div
-                onClick={() => setShowPass(!showPass)}
-                className="w-5 absolute bottom-2 right-2 cursor-pointer"
-              >
-                {showPass ? <EyeIcon size={20} /> : <EyeOffIcon size={20} />}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <FieldGroup className="gap-5">
+            {/* Full Name Field */}
+            <Field className="space-y-2">
+              <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
+                Full Name
+              </FieldLabel>
+              <div className="relative">
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50" />
+                <Input
+                  id="name"
+                  placeholder="John Doe"
+                  className="h-14 pl-11 rounded-2xl bg-secondary/10 border-transparent focus:bg-white transition-all"
+                  {...register("name", { required: true })}
+                />
               </div>
-            </div>
-          </Field>
-          <Field className="gap-2">
-            <FieldLabel htmlFor="confirmPass">Confirm Password</FieldLabel>
-            <div className="relative">
-              <Input
-                id="confirmPass"
-                type={showConfirmPass ? "password" : "text"}
-                placeholder="******"
-                {...register("confirmPass")}
-              />
+            </Field>
 
-              <div
-                onClick={() => setShowConfirmPass(!showConfirmPass)}
-                className="w-5 absolute bottom-2 right-2 cursor-pointer"
-              >
-                {showConfirmPass ? (
-                  <EyeIcon size={20} />
-                ) : (
-                  <EyeOffIcon size={20} />
-                )}
+            {/* Email Field */}
+            <Field className="space-y-2">
+              <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
+                Email Address
+              </FieldLabel>
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50" />
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="name@example.com"
+                  className="h-14 pl-11 rounded-2xl bg-secondary/10 border-transparent focus:bg-white transition-all"
+                  {...register("email", { required: true })}
+                />
               </div>
-            </div>
-          </Field>
+            </Field>
+
+            {/* Password Field */}
+            <Field className="space-y-2">
+              <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
+                Password
+              </FieldLabel>
+              <div className="relative">
+                <LockKeyhole className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50" />
+                <Input
+                  id="password"
+                  type={showPass ? "text" : "password"}
+                  placeholder="Create a strong password"
+                  className="h-14 pl-11 pr-11 rounded-2xl bg-secondary/10 border-transparent focus:bg-white transition-all"
+                  {...register("password", { required: true, minLength: 6 })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPass(!showPass)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-primary transition-colors"
+                >
+                  {showPass ? <EyeOffIcon size={18} /> : <EyeIcon size={18} />}
+                </button>
+              </div>
+            </Field>
+
+            {/* Confirm Password Field */}
+            <Field className="space-y-2">
+              <FieldLabel className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground ml-1">
+                Confirm Password
+              </FieldLabel>
+              <div className="relative">
+                <LockKeyhole className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50" />
+                <Input
+                  id="confirmPass"
+                  type={showConfirmPass ? "text" : "password"}
+                  placeholder="Type password again"
+                  className="h-14 pl-11 pr-11 rounded-2xl bg-secondary/10 border-transparent focus:bg-white transition-all"
+                  {...register("confirmPass", { required: true, minLength: 6 })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPass(!showConfirmPass)}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground/50 hover:text-primary transition-colors"
+                >
+                  {showConfirmPass ? (
+                    <EyeOffIcon size={18} />
+                  ) : (
+                    <EyeIcon size={18} />
+                  )}
+                </button>
+              </div>
+            </Field>
+          </FieldGroup>
 
           <Button
-            aria-label="Login"
+            disabled={!name || !email || !password || !confirmPass}
             type="submit"
-            disabled={
-              !name ||
-              !email ||
-              !password ||
-              !confirmPass ||
-              password !== confirmPass
-            }
-            className="cursor-pointer"
+            className="w-full h-14 rounded-full font-bold uppercase tracking-widest text-xs shadow-xl shadow-primary/10 hover:shadow-primary/20 transition-all mt-4"
           >
-            Register
+            Create Account
           </Button>
-        </FieldGroup>
+        </form>
 
-        <p className="text-center">
-          Already have an account?{" "}
-          <Link href="/login" className="underline">
-            Login
-          </Link>
-        </p>
-      </form>
+        <div className="mt-10 text-center">
+          <p className="text-sm text-muted-foreground">
+            Already have an account?{" "}
+            <Link
+              href={redirect ? `/login?redirect=${redirect}` : "/login"}
+              className="text-primary font-bold hover:underline ml-1"
+            >
+              Sign in instead
+            </Link>
+          </p>
+        </div>
+      </div>
+
+      <Link
+        href="/shop"
+        className="mt-8 text-xs text-muted-foreground hover:text-primary transition-colors font-medium uppercase tracking-widest"
+      >
+        ← Back to Store
+      </Link>
     </div>
   );
 };
 
-const Page = () => {
+export default function Page() {
   return (
     <Suspense
       fallback={
-        <div className="h-screen flex flex-col items-center justify-center">
-          Loading...
+        <div className="h-screen flex items-center justify-center bg-[#FAF9F6]">
+          <div className="animate-pulse font-serif text-xl text-primary">
+            Furniro.
+          </div>
         </div>
       }
     >
       <RegisterForm />
     </Suspense>
   );
-};
-
-export default Page;
+}
