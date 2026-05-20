@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 
 import authRoutes from "./src/routes/auth.routes.js";
+import userRoutes from "./src/routes/user.routes.js";
 import { createOTPRouter } from "./src/routes/otp.routes.js";
 import categoryRoutes from "./src/routes/category.routes.js";
 import productRoutes from "./src/routes/product.routes.js";
@@ -29,6 +30,7 @@ export const createApp = (dep) => {
 
   // Routes
   app.use("/api/auth", authRoutes);
+  app.use("/api/users", userRoutes);
   app.use("/api/otp", createOTPRouter(dep));
   app.use("/api/categories", categoryRoutes);
   app.use("/api/products", productRoutes);
