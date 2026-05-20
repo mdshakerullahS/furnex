@@ -1,40 +1,48 @@
-import { ChartBarDecreasing, ChartColumnIncreasing } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "./ui/card";
+"use client";
+
+import { TrendingUp, TrendingDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const DashboardMiniCard = ({ k }) => {
+  const isIncrease = k.changeType === "Increase";
+
   return (
-    <Card className="flex-row items-center justify-between p-2">
-      <CardHeader className="w-full gap-0 px-2">
-        <CardTitle className="text-xl font-bold">{`${
-          k.label === "Total Revenue" ? "$" : ""
-        }${k.value}${k.label === "Conversion Rate" ? "%" : ""}`}</CardTitle>
+    <div className="bg-white p-6 rounded-[28px] border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 group">
+      <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground mb-3">
+        {k.label}
+      </p>
 
-        <CardDescription className="text-xs text-muted-foreground">
-          {k.label}
-        </CardDescription>
-      </CardHeader>
+      <div className="flex items-baseline justify-between">
+        <h4 className="text-2xl font-bold tracking-tight">
+          {k.prefix}
+          {k.value.toLocaleString()}
+          {k.suffix}
+        </h4>
 
-      <CardContent className="px-2">
-        {k.changeType === "Increase" ? (
-          <ChartColumnIncreasing className="text-green-500" size={20} />
-        ) : (
-          <ChartBarDecreasing className="text-red-500" size={20} />
-        )}
-        <p
-          className={`text-xs ${
-            k.changeType === "Increase" ? "text-green-500" : "text-red-500"
-          }`}
+        <div
+          className={cn(
+            "flex items-center gap-1 px-2 py-1 rounded-lg text-[10px] font-bold",
+            isIncrease
+              ? "text-emerald-600 bg-emerald-50"
+              : "text-rose-600 bg-rose-50",
+          )}
         >
+          {isIncrease ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
           {k.change}%
-        </p>
-      </CardContent>
-    </Card>
+        </div>
+      </div>
+
+      {/* Decorative progress line for that "Premium" feel */}
+      <div className="mt-4 h-1 w-full bg-gray-50 rounded-full overflow-hidden">
+        <div
+          className={cn(
+            "h-full transition-all duration-1000",
+            isIncrease ? "bg-primary/40" : "bg-rose-300",
+          )}
+          style={{ width: `${Math.min(k.change * 4, 100)}%` }}
+        />
+      </div>
+    </div>
   );
 };
 
