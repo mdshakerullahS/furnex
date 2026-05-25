@@ -41,9 +41,9 @@ export const menuItems = [
     href: `${ADMIN_ROUTE}/customers`,
   },
   {
-    label: "Coupons",
+    label: "Promotions",
     icon: Tag,
-    href: `${ADMIN_ROUTE}/coupons`,
+    href: `${ADMIN_ROUTE}/promotions`,
   },
   {
     label: "Inbox",
