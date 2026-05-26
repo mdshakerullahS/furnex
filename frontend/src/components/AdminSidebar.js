@@ -10,60 +10,84 @@ import {
   Tag,
   Package,
   Mail,
+  ShieldCheck,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import useAuth from "@/stores/userStore";
 
 const ADMIN_ROUTE = "/admin";
+
 export const menuItems = [
   {
     label: "Overview",
     icon: LayoutDashboard,
     href: ADMIN_ROUTE,
+    roles: ["super_admin", "manager", "staff"],
   },
   {
     label: "Categories",
     icon: Tag,
     href: `${ADMIN_ROUTE}/categories`,
+    roles: ["super_admin", "manager", "staff"],
   },
   {
     label: "Products",
     icon: Package,
     href: `${ADMIN_ROUTE}/products`,
+    roles: ["super_admin", "manager", "staff"],
   },
   {
     label: "Orders",
     icon: ShoppingBag,
     href: `${ADMIN_ROUTE}/orders`,
+    roles: ["super_admin", "manager", "staff"],
   },
   {
     label: "Customers",
     icon: Users,
     href: `${ADMIN_ROUTE}/customers`,
+    roles: ["super_admin", "manager"],
   },
   {
     label: "Promotions",
     icon: Tag,
     href: `${ADMIN_ROUTE}/promotions`,
+    roles: ["super_admin", "manager", "staff"],
   },
   {
     label: "Inbox",
     icon: Mail,
     href: `${ADMIN_ROUTE}/inbox`,
+    roles: ["super_admin", "manager", "staff"],
   },
   {
     label: "Settings",
     icon: Settings,
     href: `${ADMIN_ROUTE}/settings`,
+    roles: ["super_admin", "manager"],
+  },
+  {
+    label: "Team",
+    icon: ShieldCheck,
+    href: `${ADMIN_ROUTE}/team`,
+    roles: ["super_admin", "admin"],
   },
 ];
 
 const AdminSidebar = () => {
   const pathname = usePathname();
+  const user = useAuth((state) => state.user);
+
+  const userRole = user?.role || "customer";
+
+  const filteredMenu = menuItems.filter((item) =>
+    item.roles.includes(userRole),
+  );
 
   return (
     <aside className="w-[260px] h-full bg-white border-r border-gray-100 flex flex-col py-6 px-4">
       <nav className="flex-1 space-y-2">
-        {menuItems.map((item) => {
+        {filteredMenu.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
@@ -87,17 +111,6 @@ const AdminSidebar = () => {
           );
         })}
       </nav>
-
-      <div className="pt-6 border-t border-gray-100">
-        <div className="bg-[#FAF9F6] p-4 rounded-2xl">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground mb-1">
-            Role
-          </p>
-          <p className="text-sm font-serif font-bold text-primary">
-            Store Manager
-          </p>
-        </div>
-      </div>
     </aside>
   );
 };

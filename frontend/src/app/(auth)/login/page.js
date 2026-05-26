@@ -48,6 +48,7 @@ const LoginForm = () => {
         name: result.user.name,
         email: result.user.email,
         isVerified: result.user.isVerified,
+        role: result.user.role,
       });
 
       toast.success("Welcome back to Furniro!");

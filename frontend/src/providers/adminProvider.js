@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { menuItems } from "@/components/AdminSidebar";
 
 const AdminProvider = ({ children }) => {
   const router = useRouter();
@@ -24,7 +25,26 @@ const AdminProvider = ({ children }) => {
           return;
         }
 
-        if (data?.user.role !== "admin") {
+        const validAdminRoles = ["super_admin", "manager", "staff"];
+        if (!validAdminRoles.includes(data?.user.role)) {
+          router.push("/unauthorized");
+          return;
+        }
+
+        // Check specific route permissions using menuItems logic
+        const userRole = data?.user.role;
+        const matchingMenu = menuItems.find(
+          (item) => pathname.startsWith(item.href) && item.href !== "/admin",
+        );
+
+        // If it's the exact admin route (overview), check that first
+        if (pathname === "/admin") {
+          const overviewItem = menuItems.find((item) => item.href === "/admin");
+          if (overviewItem && !overviewItem.roles.includes(userRole)) {
+            router.push("/unauthorized");
+            return;
+          }
+        } else if (matchingMenu && !matchingMenu.roles.includes(userRole)) {
           router.push("/unauthorized");
           return;
         }

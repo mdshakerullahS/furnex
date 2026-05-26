@@ -17,7 +17,8 @@ export const verifyAdmin = async (req, res, next) => {
         });
       }
 
-      if (decoded.role !== "admin") {
+      const adminRoles = ["super_admin", "manager", "staff"];
+      if (!adminRoles.includes(decoded.role)) {
         return res.status(403).json({
           message: "Unauthorized",
         });
