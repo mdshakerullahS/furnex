@@ -63,6 +63,7 @@ export const register = async (req, res, next) => {
         name: user.name,
         email: user.email,
         isVerified: user.isVerified,
+        role: user.role,
       },
       message: "User registered successfully",
     });

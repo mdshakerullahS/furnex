@@ -47,9 +47,10 @@ const RegisterForm = () => {
       if (!res.ok) {
         throw new Error(result.message || "Registration failed");
       } else {
+        setUser(result.user);
         reset();
-        toast.success("Account created! Please login.");
-        router.push(redirect ? `/login?redirect=${redirect}` : "/login");
+        toast.success("Account created! You are now logged in.");
+        router.push(redirect ? redirect : "/");
       }
     } catch (err) {
       toast.error(err.message);
