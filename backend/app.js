@@ -12,6 +12,8 @@ import cartRoutes from "./src/routes/cart.routes.js";
 import orderRoutes from "./src/routes/order.routes.js";
 import messageRoutes from "./src/routes/message.routes.js";
 import promotionRoutes from "./src/routes/promotion.routes.js";
+import settingsRoutes from "./src/routes/settings.routes.js";
+import dashboardRoutes from "./src/routes/dashboard.routes.js";
 import { genOTP, sendOTPMail } from "./src/services/email.service.js";
 
 dotenv.config();
@@ -39,6 +41,8 @@ export const createApp = (dep) => {
   app.use("/api/orders", orderRoutes);
   app.use("/api/messages", messageRoutes);
   app.use("/api/promotions", promotionRoutes);
+  app.use("/api/settings", settingsRoutes);
+  app.use("/api/dashboard", dashboardRoutes);
 
   // Error middleware
   app.use((err, _, res, __) => {
