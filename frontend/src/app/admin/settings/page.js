@@ -2,7 +2,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import {
@@ -28,29 +28,49 @@ const Page = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { isDirty },
   } = useForm({
     defaultValues: {
-      storeName: "Furniro Premium",
-      storeEmail: "support@furniro.com",
-      storePhone: "+1 (555) 234-5678",
-      currency: "USD",
-      address: "224 Luxury Showroom Dr, New York, NY",
-      stripePublicKey: "pk_test_51Nx...",
-      stripeSecretKey: "sk_test_51Nx...",
-      enableCod: true,
+      storeName: "",
+      storeEmail: "",
+      storePhone: "",
+      currency: "",
+      address: "",
+      stripePublicKey: "",
+      stripeSecretKey: "",
+      enableCod: false,
       lowStockThreshold: 10,
-      enableNotifications: true,
+      enableNotifications: false,
       currentPassword: "",
       newPassword: "",
     },
   });
 
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/settings`, {
+          credentials: "include",
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.settings) {
+            reset({ ...data.settings, currentPassword: "", newPassword: "" });
+          }
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error("Failed to fetch settings", err);
+      }
+    };
+    fetchSettings();
+  }, [reset]);
+
   const onSubmit = async (data) => {
     try {
       setLoading(true);
 
-      // Simulating API call to save settings
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/settings`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -58,12 +78,16 @@ const Page = () => {
         credentials: "include",
       });
 
-      if (!res.ok) throw new Error("Failed to update configurations");
+      const responseData = await res.json();
+      if (!res.ok)
+        throw new Error(
+          responseData.message || "Failed to update configurations",
+        );
 
       toast.success("Dashboard configurations updated successfully");
+      reset({ ...data, currentPassword: "", newPassword: "" });
     } catch (err) {
-      // Fallback success for static prototyping if endpoint isn't fully ready yet
-      toast.success("Settings saved successfully!");
+      toast.error(err.message || "Failed to update configurations");
     } finally {
       setLoading(false);
     }
