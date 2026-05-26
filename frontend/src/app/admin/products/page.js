@@ -46,7 +46,7 @@ const ProductsPage = () => {
             size="sm"
             className="rounded-xl gap-2 text-xs font-bold uppercase tracking-widest h-10 px-5"
           >
-            <Link href="/admin/dashboard/products/add">
+            <Link href="/admin/products/add">
               <Plus className="w-4 h-4" />
               Add Product
             </Link>
