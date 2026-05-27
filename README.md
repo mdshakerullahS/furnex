@@ -1,6 +1,6 @@
 # 🛋️ Furniro – Full Stack E‑commerce Application
 
-Furniro is a **full‑stack e‑commerce web application** built with modern web technologies. It supports user authentication, product browsing with advanced filtering, cart and order management, and an admin dashboard for managing products and orders.
+Furniro is a **full‑stack e‑commerce web application** built with modern web technologies. It features robust user authentication, product browsing with advanced filtering, real-time cart and order management, and a fully functional admin dashboard with Role-Based Access Control (RBAC).
 
 This project demonstrates a complete real‑world e‑commerce workflow using **Next.js App Router** and **Node.js + Express**.
 
@@ -10,19 +10,19 @@ This project demonstrates a complete real‑world e‑commerce workflow using **
 
 ### 👤 User Features
 
-- User authentication (Register / Login)
-- Email verification using Brevo
-- Browse products with filters
-- Add to cart and manage cart items
-- Place orders (dummy checkout)
-- Responsive design for all devices
+- **Authentication & Security:** Register / Login with secure JWT-based sessions and email verification via Brevo.
+- **Product Discovery:** Browse products with advanced filtering and search capabilities.
+- **Shopping Cart:** Dynamic cart management (add, update, remove items) powered by Zustand.
+- **Order Tracking:** Comprehensive order history where customers can view and track their past purchases.
+- **Responsive UI:** Fully optimized for mobile, tablet, and desktop views using Tailwind CSS and shadcn/ui.
 
 ### 🛠️ Admin Features
 
-- Admin dashboard
-- Product management (create, update, delete)
-- Order management
-- Image upload using Cloudinary
+- **Live Admin Dashboard:** A fully integrated management suite operating on real-time database data.
+- **Role-Based Access Control (RBAC):** Secure authorization layers ensuring only authorized administrators can access management tools.
+- **Product Management:** Complete CRUD operations (Create, Read, Update, Delete) for products.
+- **Order Management:** Track, update, and manage customer orders seamlessly.
+- **Media Storage:** Integrated image upload pipeline utilizing Cloudinary.
 
 ---
 
