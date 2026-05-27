@@ -191,7 +191,7 @@ const Page = () => {
                       onClick={() =>
                         currentPage > 1 && setCurrentPage(currentPage - 1)
                       }
-                      className={`rounded-xl h-12 w-12 border-none bg-secondary/40 hover:bg-primary hover:text-background transition-all ${
+                      className={`rounded-xl h-12 w-12 sm:w-auto border-none bg-secondary/40 hover:bg-primary hover:text-background transition-all ${
                         currentPage === 1 && "opacity-0 pointer-events-none"
                       }`}
                     />
@@ -205,7 +205,7 @@ const Page = () => {
                           onClick={() => setCurrentPage(page)}
                           className={`rounded-xl h-12 w-12 border-none transition-all ${
                             page === currentPage
-                              ? "bg-primary text-background shadow-lg shadow-primary/30"
+                              ? "bg-primary text-foreground shadow-sm shadow-primary/10"
                               : "bg-secondary/40 hover:bg-secondary"
                           }`}
                         >
@@ -221,7 +221,7 @@ const Page = () => {
                         currentPage < totalPages &&
                         setCurrentPage(currentPage + 1)
                       }
-                      className={`rounded-xl h-12 w-12 border-none bg-secondary/40 hover:bg-primary hover:text-background transition-all ${
+                      className={`rounded-xl h-12 w-12 sm:w-auto border-none bg-secondary/40 hover:bg-primary hover:text-background transition-all ${
                         currentPage === totalPages &&
                         "opacity-0 pointer-events-none"
                       }`}
