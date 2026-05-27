@@ -85,6 +85,18 @@ export const getOrders = async (_, res, next) => {
   }
 };
 
+export const getMyOrders = async (req, res, next) => {
+  try {
+    const customerID = req.user?._id;
+
+    const orders = await Order.find({ customerID });
+
+    return res.status(200).json({ orders });
+  } catch (err) {
+    next(err);
+  }
+};
+
 export const getSingleOrder = async (req, res, next) => {
   try {
     const order = await Order.findById(req.params.id);
