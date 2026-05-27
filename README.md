@@ -141,8 +141,7 @@ NEXT_PUBLIC_API_URL
 
   ![Cart page](Cart_Page.png)
 
-- Admin dashboard <small>(Dummy)</small>
-
+- Admin dashboard
   ![Admin dashboard](Admin_Dashboard.png)
 
 ---
