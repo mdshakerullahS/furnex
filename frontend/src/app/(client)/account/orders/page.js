@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import useAuth from "@/stores/userStore";
 import { useRouter } from "next/navigation";
 
-const OrdersPage = () => {
+const Page = () => {
   const [orders, setOrders] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
@@ -285,4 +285,4 @@ const OrdersPage = () => {
   );
 };
 
-export default OrdersPage;
+export default Page;
