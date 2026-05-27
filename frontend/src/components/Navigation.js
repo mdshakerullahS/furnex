@@ -28,8 +28,7 @@ const Navigation = ({ isMobileOpen, setIsMobileOpen }) => {
   const pathname = usePathname();
 
   const isAdmin =
-    user?.role &&
-    ["admin", "super_admin", "manager", "staff"].includes(user.role);
+    user?.role && ["super_admin", "manager", "staff"].includes(user.role);
 
   const initials = user?.name
     ? user.name
@@ -138,8 +137,8 @@ const Navigation = ({ isMobileOpen, setIsMobileOpen }) => {
                     className="flex w-full items-center justify-between p-4 rounded-xl hover:bg-secondary/50 text-sm font-semibold transition-colors"
                   >
                     <span className="flex items-center gap-2">
-                      <LayoutDashboard className="w-4 h-4 text-primary" />{" "}
-                      Admin Panel
+                      <LayoutDashboard className="w-4 h-4 text-primary" /> Admin
+                      Panel
                     </span>
                     <ArrowRight className="w-4 h-4 text-muted-foreground" />
                   </Link>
@@ -167,6 +166,7 @@ const Navigation = ({ isMobileOpen, setIsMobileOpen }) => {
                   onClick={() => {
                     logOut();
                     setIsMobileOpen(false);
+                    router.push("/login");
                   }}
                 >
                   <LogOut className="w-4 h-4" /> Log out
@@ -187,10 +187,7 @@ const Navigation = ({ isMobileOpen, setIsMobileOpen }) => {
                   variant="outline"
                   className="w-full rounded-full h-12"
                 >
-                  <Link
-                    href="/register"
-                    onClick={() => setIsMobileOpen(false)}
-                  >
+                  <Link href="/register" onClick={() => setIsMobileOpen(false)}>
                     Create account
                   </Link>
                 </Button>

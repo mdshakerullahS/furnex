@@ -27,7 +27,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 const Header = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -37,6 +37,7 @@ const Header = () => {
   const { cart, getCart } = useCart();
   const { user, logOut } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
 
   const isAdmin =
     user?.role && ["super_admin", "manager", "staff"].includes(user.role);
@@ -159,7 +160,10 @@ const Header = () => {
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className="cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/5"
-                    onClick={() => logOut()}
+                    onClick={() => {
+                      logOut();
+                      router.push("/login");
+                    }}
                   >
                     <LogOut className="mr-2 h-4 w-4" /> Log out
                   </DropdownMenuItem>
