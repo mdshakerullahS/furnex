@@ -14,7 +14,7 @@
   "keywords": [],
   "author": "Md Shakerullah Sourov",
   "license": "MIT",
-  "description": "Furnex backend",
+  "description": "Backend API for Furnex",
   "dependencies": {
     "@getbrevo/brevo": "^3.0.1",
     "bcryptjs": "^3.0.3",

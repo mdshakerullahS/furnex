@@ -12,7 +12,7 @@
   },
   "author": "Md Shakerullah Sourov",
   "license": "MIT",
-  "description": "Furnex frontend",
+  "description": "Frontend for Furnex",
   "dependencies": {
     "@radix-ui/react-aspect-ratio": "^1.1.8",
     "@radix-ui/react-avatar": "^1.1.11",

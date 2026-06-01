@@ -1,4 +1,4 @@
-# Furniro — Full Stack E-commerce Application
+# Furnex — Full Stack E-commerce Application
 
 > **Live Demo:** [https://furnex-one.vercel.app](https://furnex-one.vercel.app)
 
@@ -59,8 +59,8 @@ Built with Next.js App Router, Node.js + Express, MongoDB, and a custom RBAC aut
 ### Install
 
 ```bash
-git clone https://github.com/mdshakerullahS/Furniro.git
-cd furniro
+git clone https://github.com/mdshakerullahS/furnex.git
+cd furnex
 ```
 
 ### Environment variables
@@ -125,7 +125,7 @@ Register / Login
 ## Project Structure
 
 ```
-furniro/
+furnex/
 ├── frontend/
 │   └── src/
 │       ├── app/                    # Next.js App Router pages
