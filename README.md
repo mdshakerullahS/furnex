@@ -1,187 +1,164 @@
-# 🛋️ Furniro – Full Stack E‑commerce Application
+# Furniro — Full Stack E-commerce Application
 
-Furniro is a **full‑stack e‑commerce web application** built with modern web technologies. It features robust user authentication, product browsing with advanced filtering, real-time cart and order management, and a fully functional admin dashboard with Role-Based Access Control (RBAC).
+> **Live Demo:** [https://furnex-one.vercel.app](https://furnex-one.vercel.app)
 
-This project demonstrates a complete real‑world e‑commerce workflow using **Next.js App Router** and **Node.js + Express**.
+A full-stack e-commerce web application built with modern web technologies. Features secure JWT authentication with email verification, product browsing with advanced filtering, real-time cart and order management, and a fully functional admin dashboard with Role-Based Access Control (RBAC).
 
----
-
-## 🚀 Features
-
-### 👤 User Features
-
-- **Authentication & Security:** Register / Login with secure JWT-based sessions and email verification via Brevo.
-- **Product Discovery:** Browse products with advanced filtering and search capabilities.
-- **Shopping Cart:** Dynamic cart management (add, update, remove items) powered by Zustand.
-- **Order Tracking:** Comprehensive order history where customers can view and track their past purchases.
-- **Responsive UI:** Fully optimized for mobile, tablet, and desktop views using Tailwind CSS and shadcn/ui.
-
-### 🛠️ Admin Features
-
-- **Live Admin Dashboard:** A fully integrated management suite operating on real-time database data.
-- **Role-Based Access Control (RBAC):** Secure authorization layers ensuring only authorized administrators can access management tools.
-- **Product Management:** Complete CRUD operations (Create, Read, Update, Delete) for products.
-- **Order Management:** Track, update, and manage customer orders seamlessly.
-- **Media Storage:** Integrated image upload pipeline utilizing Cloudinary.
+Built with Next.js App Router, Node.js + Express, MongoDB, and a custom RBAC authorization layer. Designed for learning, portfolio, and demonstration purposes.
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
-### Frontend
-
-- **Next.js** (App Router)
-- **Tailwind CSS**
-- **shadcn/ui**
-- **Zustand** (state management)
-
-### Backend
-
-- **Node.js**
-- **Express.js**
-- **MongoDB** (Mongoose)
-- **JWT Authentication**
-- **Brevo** (email verification)
-- **Cloudinary** (image uploads)
+| Layer            | Tool                                |
+| ---------------- | ----------------------------------- |
+| Frontend         | Next.js (App Router) + Tailwind CSS |
+| UI Components    | shadcn/ui                           |
+| State Management | Zustand                             |
+| Backend          | Node.js + Express.js                |
+| Database         | MongoDB (Mongoose)                  |
+| Authentication   | JWT + HTTP-only cookies             |
+| Email            | Brevo (email verification)          |
+| Media Storage    | Cloudinary                          |
 
 ---
 
-## 🔐 Environment Variables
+## Features
 
-### Frontend (`.env`)
+### User features
 
-```env
-NEXT_PUBLIC_API_URL=http://localhost:8000/api
-```
+| Feature                  | What's included                                                               |
+| ------------------------ | ----------------------------------------------------------------------------- |
+| 👤 **Authentication**    | Register / Login with JWT sessions, HTTP-only cookies, and email verification |
+| 🔍 **Product Discovery** | Browse products with advanced filtering and search                            |
+| 🛒 **Shopping Cart**     | Add, update, and remove items — powered by Zustand                            |
+| 📦 **Order Tracking**    | Full order history with status tracking for past purchases                    |
+| 📱 **Responsive UI**     | Optimized for mobile, tablet, and desktop                                     |
 
-### Backend (`.env`)
+### Admin features
 
-```env
-NODE_ENV=
-PORT=8000
-MONGODB_URI=
-JWT_SECRET=
-
-FRONTEND_URL=http://localhost:3000
-
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
-
-BREVO_API_KEY=
-EMAIL_USER=
-```
+| Feature                   | What's included                                                                |
+| ------------------------- | ------------------------------------------------------------------------------ |
+| 📊 **Live Dashboard**     | Real-time management suite operating directly on live database data            |
+| 🔐 **RBAC**               | Role-based access control — only authorized admins can access management tools |
+| 🗂️ **Product Management** | Full CRUD operations — create, read, update, delete products                   |
+| 🚚 **Order Management**   | Track, update, and manage all customer orders                                  |
+| 🖼️ **Media Storage**      | Image upload pipeline via Cloudinary                                           |
 
 ---
 
-## ▶️ Getting Started
+## Running Locally
 
-### 1️⃣ Clone the Repository
+### Prerequisites
+
+- Node.js 18+
+- MongoDB instance (local or Atlas)
+- Cloudinary account
+- Brevo account (for email verification)
+
+### Install
 
 ```bash
 git clone https://github.com/mdshakerullahS/Furniro.git
 cd furniro
 ```
 
----
+### Environment variables
 
-### 2️⃣ Backend Setup
+**Frontend** — create `.env` in `/frontend`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+```
+
+**Backend** — create `.env` in `/backend`:
+
+```env
+NODE_ENV=
+PORT=8000
+MONGODB_URI=
+JWT_SECRET=
+FRONTEND_URL=http://localhost:3000
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+BREVO_API_KEY=
+EMAIL_USER=
+```
+
+### Run
 
 ```bash
+# Backend — http://localhost:8000
 cd backend
 npm install
 npm run dev
-```
 
-Backend will run on:
-
-```
-http://localhost:8000
-```
-
----
-
-### 3️⃣ Frontend Setup
-
-```bash
+# Frontend — http://localhost:3000
 cd frontend
 npm install
 npm run dev
 ```
 
-Frontend will run on:
+---
+
+## How Authentication Works
 
 ```
-http://localhost:3000
+Register / Login
+       │
+       ├─ 1. User submits credentials
+       │      └─ Password hashed and stored in MongoDB
+       │         JWT issued and stored in HTTP-only cookie
+       │
+       ├─ 2. Email Verification (Brevo)
+       │      └─ Verification email sent on registration
+       │         Account activated on confirmation
+       │
+       └─ 3. Protected Routes
+              RBAC middleware checks role on every admin request
+              Customers only access their own orders and cart
 ```
 
 ---
 
-## 🔄 API Communication
+## Project Structure
 
-The frontend communicates with the backend using REST APIs configured via:
-
-```env
-NEXT_PUBLIC_API_URL
+```
+furniro/
+├── frontend/
+│   └── src/
+│       ├── app/                    # Next.js App Router pages
+│       ├── components/             # Reusable UI components (shadcn/ui)
+│       └── store/                  # Zustand state management (cart, auth)
+│
+└── backend/
+    └── src/
+        ├── controllers/            # Route handlers (auth, products, orders)
+        ├── middleware/             # JWT verification + RBAC authorization
+        ├── models/                 # Mongoose schemas (User, Product, Order)
+        └── routes/                 # Express route definitions
 ```
 
 ---
 
-## 📸 Screenshots
+## Notes
 
-- Homepage
-
-  ![Homepage](Homepage.png)
-
-- Product listing
-
-  ![Product listing](Product_Listing.png)
-
-- Cart page
-
-  ![Cart page](Cart_Page.png)
-
-- Admin dashboard
-  ![Admin dashboard](Admin_Dashboard.png)
+- Payment flow is currently **non-integrated** (dummy placeholder)
+- Project is intended for **learning, portfolio, and demonstration** purposes
 
 ---
 
-## 🧪 Authentication Flow
-
-- JWT-based authentication
-- Secure HTTP-only cookies
-- Email verification after registration
-
----
-
-## 🧑‍💻 Developer
+## Contact
 
 **Md Shakerullah Sourov**
-Full Stack Developer
 
-- LinkedIn: [https://linkedin.com/in/mdshakerullah](https://linkedin.com/in/mdshakerullah)
-- Email: [sourovmdshakerullah@gmail.com](mailto:sourovmdshakerullah@gmail.com)
-
----
-
-## 📌 Notes
-
-- Payment flow is currently **dummy / non‑integrated**
-- Project is intended for learning, portfolio, and demonstration purposes
+- GitHub: [@mdshakerullahS](https://github.com/mdshakerullahS)
+- LinkedIn: [linkedin.com/in/mdshakerullah](https://linkedin.com/in/mdshakerullah)
+- Email: sourovmdshakerullah@gmail.com
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the **MIT License**.
-See the `LICENSE` file for full details.
-
----
-
-## ⭐ Show Your Support
-
-If you like this project, please give it a ⭐ on GitHub!
-
----
-
-Happy Coding 🚀
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for full details.
