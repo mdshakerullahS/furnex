@@ -22,7 +22,7 @@ const Footer = () => {
         <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="max-w-md text-center lg:text-left">
             <h3 className="text-2xl font-serif font-medium mb-2">
-              Join the Furniro Family
+              Join the Furnex Family
             </h3>
             <p className="text-muted-foreground text-sm">
               Subscribe to receive updates, access to exclusive deals, and more.
@@ -52,11 +52,11 @@ const Footer = () => {
                 src={logo}
                 width={36}
                 height={36}
-                alt="Furniro Logo"
+                alt="Furnex Logo"
                 className="w-auto brightness-90"
               />
               <span className="text-2xl font-serif font-bold tracking-tight">
-                Furniro
+                Furnex
               </span>
             </Link>
             <p className="max-w-xs text-muted-foreground leading-relaxed">
@@ -130,7 +130,7 @@ const Footer = () => {
                 VIC 3000, Australia
               </p>
               <p className="text-foreground font-medium underline underline-offset-4">
-                support@furniro.com
+                support@furnex.com
               </p>
               <p className="text-foreground font-medium">+61 3 1234 5678</p>
             </address>
@@ -160,7 +160,7 @@ const Footer = () => {
         {/* --- Bottom Bar --- */}
         <div className="border-t border-border/40 mt-20 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-[12px] text-muted-foreground tracking-wide">
-            © {new Date().getFullYear()} Furniro Studio. All rights reserved.
+            © {new Date().getFullYear()} Furnex Studio. All rights reserved.
           </p>
           <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground/50">
             Designed for Modern Living

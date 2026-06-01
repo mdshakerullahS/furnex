@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const settingsSchema = new mongoose.Schema(
   {
-    storeName: { type: String, default: "Furniro Premium" },
-    storeEmail: { type: String, default: "support@furniro.com" },
+    storeName: { type: String, default: "Furnex Premium" },
+    storeEmail: { type: String, default: "support@furnex.com" },
     storePhone: { type: String, default: "+1 (555) 234-5678" },
     currency: { type: String, default: "USD" },
     address: { type: String, default: "224 Luxury Showroom Dr, New York, NY" },

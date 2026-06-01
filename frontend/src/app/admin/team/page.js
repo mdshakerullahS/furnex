@@ -162,7 +162,7 @@ export default function TeamPage() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="jane@furniro.com"
+                placeholder="jane@furnex.com"
                 className="h-12"
               />
             </div>

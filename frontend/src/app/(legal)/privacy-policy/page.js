@@ -16,7 +16,7 @@ const Page = () => {
             1. Information We Collect
           </h2>
           <p>
-            When you shop at Furniro, we collect the personal information you
+            When you shop at Furnex, we collect the personal information you
             give us such as your name, address, and email address. This allows
             us to process your orders and provide a personalized experience.
           </p>

@@ -23,7 +23,7 @@ const Page = () => {
             Elevating the Art of <br /> Everyday Living.
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Furniro blends timeless craftsmanship with modern sensibilities to
+            Furnex blends timeless craftsmanship with modern sensibilities to
             create spaces you'll never want to leave.
           </p>
         </div>
@@ -48,7 +48,7 @@ const Page = () => {
             </h2>
             <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
               <p>
-                Furniro is a modern furniture brand focused on thoughtful design
+                Furnex is a modern furniture brand focused on thoughtful design
                 and premium craftsmanship. Every product is created to balance
                 aesthetics, durability, and everyday comfort.
               </p>

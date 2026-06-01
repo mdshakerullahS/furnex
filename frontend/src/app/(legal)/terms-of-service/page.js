@@ -51,7 +51,7 @@ const Page = () => {
           </h2>
           <p>
             These terms are governed by the laws of the jurisdiction in which
-            Furniro is registered, without regard to its conflict of law
+            Furnex is registered, without regard to its conflict of law
             provisions.
           </p>
         </section>

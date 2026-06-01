@@ -78,12 +78,12 @@ const Header = () => {
               src="/Logo.png"
               width={32}
               height={32}
-              alt="Furniro"
+              alt="Furnex"
               className="w-auto transition-transform duration-500 group-hover:rotate-360"
             />
           </div>
           <span className="text-2xl font-serif font-bold tracking-tight text-foreground">
-            Furniro
+            Furnex
           </span>
         </Link>
 

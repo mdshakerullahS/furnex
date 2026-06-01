@@ -36,7 +36,7 @@ const AdminHeader = () => {
     <header className="fixed top-0 left-0 right-0 h-[58px] bg-white/80 backdrop-blur-md border-b border-gray-100 z-50 px-6 flex items-center justify-between">
       <div className="flex items-center gap-4">
         <h1 className="text-xl font-serif font-bold text-primary tracking-tight">
-          Furniro<span className="text-foreground">.</span>
+          Furnex<span className="text-foreground">.</span>
         </h1>
         <div className="h-4 w-px bg-gray-200 mx-2" />
         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
@@ -89,7 +89,7 @@ const AdminHeader = () => {
                   {user?.name || "Admin User"}
                 </p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  {user?.email || "admin@furniro.com"}
+                  {user?.email || "admin@furnex.com"}
                 </p>
               </div>
             </DropdownMenuLabel>

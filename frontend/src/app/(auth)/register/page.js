@@ -61,7 +61,7 @@ const RegisterForm = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF9F6] px-6 py-12">
       <div className="w-full max-w-[480px] bg-white p-8 md:p-12 rounded-[40px] shadow-sm border border-border/40">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-serif mb-3">Join Furniro</h1>
+          <h1 className="text-4xl font-serif mb-3">Join Furnex</h1>
           <p className="text-muted-foreground text-sm">
             Create an account to track orders and save your favorites.
           </p>
@@ -193,7 +193,7 @@ export default function Page() {
       fallback={
         <div className="h-screen flex items-center justify-center bg-[#FAF9F6]">
           <div className="animate-pulse font-serif text-xl text-primary">
-            Furniro.
+            Furnex.
           </div>
         </div>
       }

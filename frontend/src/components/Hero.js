@@ -36,7 +36,7 @@ const Hero = () => {
                   src={img.src}
                   fill
                   sizes="100vw"
-                  alt="Furniro Interior"
+                  alt="Furnex Interior"
                   priority={idx === 0}
                   className="object-cover transition-transform duration-[10s] ease-out scale-110 group-hover:scale-100"
                 />

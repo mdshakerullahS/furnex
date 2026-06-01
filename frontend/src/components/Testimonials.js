@@ -48,7 +48,7 @@ const Testimonials = () => {
             Social Proof
           </span>
           <h2 className="text-4xl font-serif font-medium text-foreground">
-            Voices of Furniro
+            Voices of Furnex
           </h2>
           <div className="h-px w-20 bg-primary/20 mt-6" />
         </div>

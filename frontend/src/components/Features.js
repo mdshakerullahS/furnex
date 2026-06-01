@@ -33,7 +33,7 @@ const Features = () => {
       {/* Editorial Header */}
       <div className="flex flex-col items-center mb-20 text-center">
         <span className="text-primary font-bold tracking-[0.2em] uppercase text-xs mb-4">
-          The Furniro Difference
+          The Furnex Difference
         </span>
         <h2 className="text-4xl md:text-5xl font-serif font-medium text-foreground max-w-2xl leading-tight">
           Crafting a legacy <br /> More than furniture

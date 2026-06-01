@@ -51,7 +51,7 @@ const LoginForm = () => {
         role: result.user.role,
       });
 
-      toast.success("Welcome back to Furniro!");
+      toast.success("Welcome back to Furnex!");
 
       router.push(
         redirect ? redirect : result.user.role === "admin" ? "/admin" : "/",
@@ -132,7 +132,7 @@ const LoginForm = () => {
 
         <div className="mt-10 text-center">
           <p className="text-sm text-muted-foreground">
-            New to Furniro?{" "}
+            New to Furnex?{" "}
             <Link
               href={redirect ? `/register?redirect=${redirect}` : "/register"}
               className="text-primary font-bold hover:underline ml-1"
@@ -159,7 +159,7 @@ const Page = () => {
     <Suspense
       fallback={
         <div className="h-screen flex items-center justify-center bg-[#FAF9F6]">
-          <div className="animate-pulse font-serif text-xl">Furniro.</div>
+          <div className="animate-pulse font-serif text-xl">Furnex.</div>
         </div>
       }
     >

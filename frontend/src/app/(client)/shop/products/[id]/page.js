@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
       url: `${BASE_URL}/products/${id}`,
       title: product?.title,
       description: product?.description,
-      siteName: "Furniro",
+      siteName: "Furnex",
       images: [
         {
           url: product?.imageURLs[0],

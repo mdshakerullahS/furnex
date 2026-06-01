@@ -233,7 +233,7 @@ const Navigation = ({ isMobileOpen, setIsMobileOpen }) => {
               Privacy policy
             </Link>
             <p className="text-[10px] text-muted-foreground/50 mt-4">
-              © {new Date().getFullYear()} Furniro Studio
+              © {new Date().getFullYear()} Furnex Studio
             </p>
           </div>
         </div>

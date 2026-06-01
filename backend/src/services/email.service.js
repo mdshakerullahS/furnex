@@ -24,7 +24,7 @@ export const sendOTPMail = async (email, otp) => {
 
     sendSmtpEmail.subject = "Your OTP Verification Code";
     sendSmtpEmail.sender = {
-      name: "Furniro Support",
+      name: "Furnex Support",
       email: process.env.EMAIL_USER,
     };
     sendSmtpEmail.to = [{ email: email }];

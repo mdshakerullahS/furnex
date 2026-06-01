@@ -165,7 +165,7 @@ export default function Page() {
       fallback={
         <div className="h-screen flex items-center justify-center bg-[#FAF9F6]">
           <div className="animate-pulse font-serif text-xl text-primary">
-            Furniro.
+            Furnex.
           </div>
         </div>
       }
