@@ -8,6 +8,38 @@ Built with Next.js App Router, Node.js + Express, MongoDB, and a custom RBAC aut
 
 ---
 
+## Preview
+
+<details>
+<summary>Homepage</summary>
+
+![Homepage](Homepage.png)
+
+</details>
+
+<details>
+<summary>Product Listings</summary>
+
+![Product Listings](Product_Listings.png)
+
+</details>
+
+<details>
+<summary>Cart Page</summary>
+
+![Cart Page](Cart_Page.png)
+
+</details>
+
+<details>
+<summary>Admin Dashboard</summary>
+
+![Admin Dashboard](Admin_Dashboard.png)
+
+</details>
+
+---
+
 ## Tech Stack
 
 | Layer            | Tool                                |
